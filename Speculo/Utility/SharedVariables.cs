@@ -14,15 +14,17 @@ namespace Speculo.Utility
         private static SharedVariables instance = null;
         private static readonly object padlock = new object();
 
+        private List<Vector2> screenSizes;
 
-       
         public ContentManager Content { get; set; }
         public GraphicsDevice Graphics { get; set; }
         public GraphicsDeviceManager GraphicsManager { get; set; }
-        public Vector2 screenSize { get; set; }
+        public List<Vector2> ScreenSizes { get { return screenSizes; } set { screenSizes = value; } }
+        public int ScreenSizeIndex { get; set; }
         public GameplayClasses.HUD Hud { get; set; }
         public CharacterClasses.Character CharacterClass { get; set; }
         public GameplayClasses.Gameplay GamePlay { get; set; }
+        
 
         static bool called = false;
         SharedVariables()
@@ -50,8 +52,13 @@ namespace Speculo.Utility
         {
             if (!called && Graphics != null && GraphicsManager != null && Content != null)
             {
+                ScreenSizeIndex = 5;
+                screenSizes = new List<Vector2>();
+                screenSizes.InsertRange(ScreenSizes.Count, new Vector2[] { new Vector2(800, 600), new Vector2(1024, 768), new Vector2(1280, 960), new Vector2(1366, 768), new Vector2(1600, 900), new Vector2(1680, 1080), new Vector2(1920, 1080)});
+
                 Hud = new GameplayClasses.HUD();
                 GamePlay = new GameplayClasses.Gameplay();
+
                 CharacterClass = new CharacterClasses.Character();
                 called = true;
             }

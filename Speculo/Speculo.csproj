@@ -50,6 +50,7 @@
     <Compile Include="Screens\BaseScreen.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\MenuScreen.cs" />
+    <Compile Include="Screens\SettingsScreen.cs" />
     <Compile Include="UserControls\Button.cs" />
     <Compile Include="UserControls\Control.cs" />
     <Compile Include="Utility\SharedVariables.cs" />

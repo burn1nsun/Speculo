@@ -23,7 +23,7 @@ namespace Speculo.UserControls
             IsVisible = true;
             IsEnabled = true;
         }
-
+        
         public override void Draw(SpriteBatch spriteBatch)
         {
             if(IsVisible)

@@ -25,13 +25,14 @@ namespace Speculo
         List<BaseScreen> Screens = new List<BaseScreen>();
         public MenuScreen MenuScreen;
         public GameScreen GameScreen;
+        public SettingsScreen SettingsScreen;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.SynchronizeWithVerticalRetrace = false;
-            TargetElapsedTime = TimeSpan.FromTicks(66666);//fps
+            TargetElapsedTime = TimeSpan.FromTicks(66666);//fps 150
             IsMouseVisible = true;
         }
 
@@ -45,17 +46,19 @@ namespace Speculo
         {
             // TODO: Add your initialization logic here
 
-            graphics.PreferredBackBufferWidth = 1680;
-            graphics.PreferredBackBufferHeight = 950;
-            graphics.ApplyChanges();
-
-
             sharedVariables.Content = Content;
             sharedVariables.Graphics = GraphicsDevice;
             sharedVariables.GraphicsManager = graphics;
+            sharedVariables.initVariables();
+
+            graphics.PreferredBackBufferWidth = (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X;
+            graphics.PreferredBackBufferHeight = (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y;
+
+            graphics.IsFullScreen = false;
+            graphics.ApplyChanges();
+
 
             
-            sharedVariables.initVariables();
 
             base.Initialize();
         }
@@ -76,8 +79,11 @@ namespace Speculo
 
             GameScreen = new GameScreen(this);
 
+            SettingsScreen = new SettingsScreen(this);
+
             Screens.Add(GameScreen);
             Screens.Add(MenuScreen);
+            Screens.Add(SettingsScreen);
             
 
             //sharedVariables.Hud.LoadContent(Content);
@@ -101,12 +107,19 @@ namespace Speculo
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         /// 
-        void UpdateScreen(int width, int height)
+        public void UpdateScreenResolution(int width, int height)
         {
             graphics.PreferredBackBufferWidth = width;
             graphics.PreferredBackBufferHeight = height;
             graphics.ApplyChanges();
         }
+
+        public void ToggleFullScreen()
+        {
+            graphics.IsFullScreen = !graphics.IsFullScreen;
+            graphics.ApplyChanges();
+        }
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))

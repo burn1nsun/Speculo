@@ -25,7 +25,7 @@ namespace Speculo.GameplayClasses
             boundsTexture = sharedVariables.Content.Load<Texture2D>("Textures/bounds");
 
             boundsPosition = new Vector2(0, 0);
-            boundsRectangle = new Rectangle ((int)boundsPosition.X, (int)boundsPosition.Y, sharedVariables.GraphicsManager.PreferredBackBufferWidth, sharedVariables.GraphicsManager.PreferredBackBufferHeight);
+            boundsRectangle = new Rectangle ((int)boundsPosition.X, (int)boundsPosition.Y, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
         }
 
         public void LoadContent(ContentManager Content)
