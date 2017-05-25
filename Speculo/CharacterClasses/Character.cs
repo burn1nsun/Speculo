@@ -14,17 +14,18 @@ namespace Speculo.CharacterClasses
     {
         private Texture2D texture;
         private Vector2 position;
+        
         //private Vector2 velocity;
         //private Vector2 origin;
 
-        private Rectangle rectangle;
+        private Rectangle characterRectangle;
 
         SharedVariables sharedVariables = SharedVariables.Instance;
 
         public Rectangle Rectangle
         {
-            get { return this.rectangle; }
-            set { this.rectangle = value; }
+            get { return this.characterRectangle; }
+            set { this.characterRectangle = value; }
         }
 
 
@@ -36,7 +37,7 @@ namespace Speculo.CharacterClasses
             }
 
             position = new Vector2(0, 0);
-            rectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            characterRectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             position.Y = sharedVariables.GraphicsManager.PreferredBackBufferHeight - (sharedVariables.GraphicsManager.PreferredBackBufferHeight / 100 * 10);
 
         }
@@ -45,11 +46,25 @@ namespace Speculo.CharacterClasses
             
             MouseState newState = Mouse.GetState();
             position.X = newState.X - texture.Width / 2 ;
+
+            checkBounds();
+        }
+
+        public void checkBounds()
+        {
+            if(position.X < sharedVariables.GamePlay.PlayArea.X)
+            {
+                position.X = sharedVariables.GamePlay.PlayArea.X;
+            }
+            if(position.X > sharedVariables.GamePlay.PlayArea.Width)
+            {
+                position.X = sharedVariables.GamePlay.PlayArea.Width;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, rectangle, Color.White);
+            spriteBatch.Draw(texture, position, characterRectangle, Color.White);
         }
     }
 }

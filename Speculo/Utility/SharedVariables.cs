@@ -22,6 +22,7 @@ namespace Speculo.Utility
         public Vector2 screenSize { get; set; }
         public GameplayClasses.HUD Hud { get; set; }
         public CharacterClasses.Character CharacterClass { get; set; }
+        public GameplayClasses.Gameplay GamePlay { get; set; }
 
         static bool called = false;
         SharedVariables()
@@ -50,6 +51,7 @@ namespace Speculo.Utility
             if (!called && Graphics != null && GraphicsManager != null && Content != null)
             {
                 Hud = new GameplayClasses.HUD();
+                GamePlay = new GameplayClasses.Gameplay();
                 CharacterClass = new CharacterClasses.Character();
                 called = true;
             }
