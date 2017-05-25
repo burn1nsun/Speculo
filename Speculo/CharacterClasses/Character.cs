@@ -47,7 +47,7 @@ namespace Speculo.CharacterClasses
             position.X = newState.X;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)jkln/
         {
             spriteBatch.Draw(texture, position, rectangle, Color.White);
         }
