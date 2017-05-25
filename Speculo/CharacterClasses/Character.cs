@@ -45,7 +45,6 @@ namespace Speculo.CharacterClasses
             
             MouseState newState = Mouse.GetState();
             position.X = newState.X;
-            //position.Y = newState.Y;
         }
 
         public void Draw(SpriteBatch spriteBatch)
