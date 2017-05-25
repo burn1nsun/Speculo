@@ -15,9 +15,11 @@ namespace Speculo.Utility
         private static SharedVariables instance = null;
         private static readonly object padlock = new object();
 
+
+       
         public ContentManager Content { get; set; }
         public GraphicsDevice Graphics { get; set; }
-        //public GraphicsDeviceManager GraphicsManager;
+        public GraphicsDeviceManager GraphicsManager { get; set; }
         public Vector2 screenSize { get; set; }
         public HUD Hud { get; set; }
 
@@ -45,7 +47,7 @@ namespace Speculo.Utility
 
         internal void initVariables()
         {
-            //GraphicsManager = new GraphicsDeviceManager();
+            
             Hud = new HUD();
         }
     }

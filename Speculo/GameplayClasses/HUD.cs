@@ -21,12 +21,12 @@ namespace Speculo.GameplayClasses
 
         public bool ShowHud { get; set; }
 
-        public HUD(GraphicsDeviceManager graphics)
+        public HUD()
         {
             sharedVariables.Content.Load<Texture2D>("Textures/bounds");
 
             boundsPosition = new Vector2(0, 0);
-            boundsRectangle = new Rectangle ((int)boundsPosition.X, (int)boundsPosition.Y, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            boundsRectangle = new Rectangle ((int)boundsPosition.X, (int)boundsPosition.Y, sharedVariables.GraphicsManager.PreferredBackBufferWidth, sharedVariables.GraphicsManager.PreferredBackBufferHeight);
         }
 
         public void LoadContent(ContentManager Content)
