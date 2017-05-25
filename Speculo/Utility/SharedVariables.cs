@@ -50,6 +50,7 @@ namespace Speculo.Utility
             if (!called && Graphics != null && GraphicsManager != null && Content != null)
             {
                 Hud = new HUD();
+                called = true;
             }
             
         }
