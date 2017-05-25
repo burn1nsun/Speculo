@@ -56,9 +56,9 @@ namespace Speculo.CharacterClasses
             {
                 position.X = sharedVariables.GamePlay.PlayArea.X;
             }
-            if(position.X > sharedVariables.GamePlay.PlayArea.Width)
+            if(position.X + texture.Width > sharedVariables.GamePlay.PlayArea.Width + sharedVariables.GamePlay.PlayArea.X)
             {
-                position.X = sharedVariables.GamePlay.PlayArea.Width;
+                position.X = (sharedVariables.GamePlay.PlayArea.Width + sharedVariables.GamePlay.PlayArea.X) - texture.Width;
             }
         }
 
