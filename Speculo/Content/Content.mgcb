@@ -56,3 +56,6 @@
 /processorParam:TextureFormat=Color
 /build:Textures/MenuObjects/Buttons/button1.png
 
+#begin cursor.cur
+/copy:cursor.cur
+

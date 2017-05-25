@@ -36,16 +36,21 @@ namespace Speculo.CharacterClasses
                 texture = sharedVariables.Content.Load<Texture2D>("Textures/character");
             }
 
-            position = new Vector2(0, 0);
-            characterRectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-            position.Y = sharedVariables.GraphicsManager.PreferredBackBufferHeight - (sharedVariables.GraphicsManager.PreferredBackBufferHeight / 100 * 10);
+            initialize();
 
         }
+
+        public void initialize()
+        {
+            position = new Vector2(0, 0);
+            characterRectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            position.Y = sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100 * 10);
+        }
+
         public void Update(GameTime gameTime)
         {
-            
             MouseState newState = Mouse.GetState();
-            position.X = newState.X - texture.Width / 2 ;
+            position.X = newState.X - texture.Width / 2;
 
             checkBounds();
         }

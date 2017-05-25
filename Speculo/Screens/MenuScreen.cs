@@ -17,6 +17,8 @@ namespace Speculo.Screens
         Button btnSettings;
         Button btnQuit;
 
+        int centerWidth;
+        int centerHeight;
         List<Control> Controls = new List<Control>();
 
         MouseState presentMouse;
@@ -24,8 +26,13 @@ namespace Speculo.Screens
 
         public MenuScreen(Game1 game)
         {
-            int centerWidth = sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2;
-            int centerHeight = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2;
+            initializeButtons(game);
+        }
+
+        public void initializeButtons(Game1 game)
+        {
+            centerWidth = sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2;
+            centerHeight = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2;
 
             this.game = game;
             Texture2D texture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1"); 
@@ -33,11 +40,12 @@ namespace Speculo.Screens
             btnSettings = new Button(game.Content, "Settings", new Rectangle(centerWidth - texture.Width / 2, centerHeight, texture.Width, texture.Height), texture);
             btnQuit = new Button(game.Content, "Quit", new Rectangle(centerWidth - texture.Width / 2, centerHeight + 100, texture.Width, texture.Height), texture);
 
+            Controls.Clear();
+
             Controls.Add(btnPlay);
             Controls.Add(btnSettings);
             Controls.Add(btnQuit);
         }
-
         public override void Update(GameTime gameTime)
         {
             presentMouse = Mouse.GetState();

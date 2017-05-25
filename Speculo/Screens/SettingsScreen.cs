@@ -66,6 +66,29 @@ namespace Speculo.Screens
 
         }
 
+        public void adjustToResolution()
+        {
+            bool wasFullScreen = sharedVariables.GraphicsManager.IsFullScreen;
+            if(wasFullScreen)
+            {
+                game.ToggleFullScreen();
+            }
+            game.UpdateScreenResolution((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
+            changeResolution.Text = sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X + " x " + sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y;
+
+            initializeButtons(game);
+            sharedVariables.Hud.BoundsRectangle = new Rectangle(0, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
+            game.MenuScreen.initializeButtons(game);
+            sharedVariables.GamePlay.initialize();
+            sharedVariables.CharacterClass.initialize();
+
+            if (wasFullScreen)
+            {
+                game.ToggleFullScreen();
+            }
+
+        }
+
         public override void Update(GameTime gameTime)
         {
             presentMouse = Mouse.GetState();
@@ -81,18 +104,13 @@ namespace Speculo.Screens
                 {
                     sharedVariables.ScreenSizeIndex = 0;
                 }
-
-                game.UpdateScreenResolution((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
-                changeResolution.Text = sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X + " x " + sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y;
-            
-                initializeButtons(game);
-                sharedVariables.Hud.BoundsRectangle = new Rectangle(0, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
-                //, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
+                adjustToResolution();
             }
 
             if (fullScreenToggle.IsLeftClicked)
             {
                 game.ToggleFullScreen();
+                adjustToResolution();
             }
 
             if (incrementVolume.IsLeftClicked)

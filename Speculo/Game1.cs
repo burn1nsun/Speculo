@@ -2,8 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Speculo.Screens;
+using Speculo.Utility;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Speculo
 {
@@ -70,6 +72,10 @@ namespace Speculo
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
+            Cursor myCursor = NativeMethods.LoadCustomCursor(@"Content\cursor.cur");
+            Form winForm = (Form)Form.FromHandle(this.Window.Handle);
+            winForm.Cursor = myCursor;
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             hudSpriteBatch = new SpriteBatch(GraphicsDevice);
@@ -122,7 +128,7 @@ namespace Speculo
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == Microsoft.Xna.Framework.Input.ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
                 Exit();
 
             // TODO: Add your update logic here

@@ -23,7 +23,12 @@ namespace Speculo.GameplayClasses
         public Gameplay()
         {
             //playArea is the area the gameplay is happening, for example the character cannot move out of the play area. Playarea X is 16% of the screen.
-            playArea = new Rectangle((sharedVariables.GraphicsManager.PreferredBackBufferWidth / 100) * 16, 0, sharedVariables.GraphicsManager.PreferredBackBufferWidth - (sharedVariables.GraphicsManager.PreferredBackBufferWidth / 100) * 32, sharedVariables.GraphicsManager.PreferredBackBufferHeight);
+            initialize();
+        }
+
+        public void initialize()
+        {
+            playArea = new Rectangle(((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
         }
     }
 }
