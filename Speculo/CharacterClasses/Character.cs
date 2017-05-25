@@ -44,7 +44,7 @@ namespace Speculo.CharacterClasses
         {
             
             MouseState newState = Mouse.GetState();
-            position.X = newState.X;
+            position.X = newState.X - texture.Width / 2 ;
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -46,8 +46,6 @@ namespace Speculo
             
             sharedVariables.initVariables();
 
-            this.IsMouseVisible = true;
-
             base.Initialize();
         }
 
