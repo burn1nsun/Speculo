@@ -22,6 +22,7 @@ namespace Speculo
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.SynchronizeWithVerticalRetrace = false;
             TargetElapsedTime = TimeSpan.FromTicks(66666);//fps
         }
 
