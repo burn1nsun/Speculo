@@ -47,8 +47,11 @@ namespace Speculo.Utility
 
         internal void initVariables()
         {
+            if (!called && Graphics != null && GraphicsManager != null && Content != null)
+            {
+                Hud = new HUD();
+            }
             
-            Hud = new HUD();
         }
     }
 

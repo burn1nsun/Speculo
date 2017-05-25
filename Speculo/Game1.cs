@@ -43,6 +43,7 @@ namespace Speculo
             sharedVariables.Content = Content;
             sharedVariables.Graphics = GraphicsDevice;
             sharedVariables.GraphicsManager = graphics;
+
             character = new Character();
             sharedVariables.initVariables();
 
