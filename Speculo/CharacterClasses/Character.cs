@@ -37,7 +37,7 @@ namespace Speculo.CharacterClasses
 
             position = new Vector2(0, 0);
             rectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-            position.Y = 420;
+            position.Y = sharedVariables.GraphicsManager.PreferredBackBufferHeight - (sharedVariables.GraphicsManager.PreferredBackBufferHeight / 100 * 10);
 
         }
         public void Update(GameTime gameTime)
