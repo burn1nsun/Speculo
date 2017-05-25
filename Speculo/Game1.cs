@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System;
 
 namespace Speculo
 {
@@ -22,6 +22,7 @@ namespace Speculo
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            TargetElapsedTime = TimeSpan.FromTicks(66666);//fps
         }
 
         /// <summary>
