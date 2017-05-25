@@ -59,9 +59,6 @@ namespace Speculo
             graphics.IsFullScreen = false;
             graphics.ApplyChanges();
 
-
-            
-
             base.Initialize();
         }
 

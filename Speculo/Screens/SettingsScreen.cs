@@ -23,6 +23,7 @@ namespace Speculo.Screens
         int centerWidth;
         int centerHeight;
 
+        Texture2D texture;
         MouseState presentMouse;
         Game1 game;
 
@@ -30,7 +31,9 @@ namespace Speculo.Screens
 
         public SettingsScreen(Game1 game)
         {
+            texture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1");
             initializeButtons(game);
+            
         }
 
         public void initializeButtons(Game1 game)
@@ -39,7 +42,7 @@ namespace Speculo.Screens
             centerHeight = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2;
 
             this.game = game;
-            Texture2D texture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1");
+            
             changeResolution = new Button(game.Content, sharedVariables.GraphicsManager.PreferredBackBufferWidth + " x " + sharedVariables.GraphicsManager.PreferredBackBufferHeight, new Rectangle(centerWidth - texture.Width / 2, centerHeight - 200, texture.Width, texture.Height), texture);
             fullScreenToggle = new Button(game.Content, "Fullscreen", new Rectangle(centerWidth - texture.Width / 2, centerHeight - 100, texture.Width, texture.Height), texture);
             incrementVolume = new Button(game.Content, "Volume+", new Rectangle(centerWidth - texture.Width / 2, centerHeight, texture.Width, texture.Height), texture);
@@ -110,7 +113,6 @@ namespace Speculo.Screens
             if (fullScreenToggle.IsLeftClicked)
             {
                 game.ToggleFullScreen();
-                adjustToResolution();
             }
 
             if (incrementVolume.IsLeftClicked)
