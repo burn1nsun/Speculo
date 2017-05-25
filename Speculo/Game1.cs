@@ -13,6 +13,7 @@ namespace Speculo
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteBatch hudSpriteBatch;
 
         Character character;
 
@@ -33,11 +34,17 @@ namespace Speculo
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            graphics.PreferredBackBufferWidth = 1680;
+            graphics.PreferredBackBufferHeight = 950;
+            graphics.ApplyChanges();
+
+
             sharedVariables.Content = Content;
             sharedVariables.Graphics = GraphicsDevice;
 
             character = new Character();
-            //sharedVariables.initVariables();
+            sharedVariables.initVariables();
 
             this.IsMouseVisible = true;
 
@@ -52,6 +59,11 @@ namespace Speculo
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            hudSpriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //sharedVariables.Hud.LoadContent(Content);
+            sharedVariables.Hud.ShowHud = true;
 
             // TODO: use this.Content to load your game content here
         }
@@ -70,6 +82,13 @@ namespace Speculo
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// 
+        void UpdateScreen(int width, int height)
+        {
+            graphics.PreferredBackBufferWidth = width;
+            graphics.PreferredBackBufferHeight = height;
+            graphics.ApplyChanges();
+        }
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -95,6 +114,10 @@ namespace Speculo
             spriteBatch.Begin();
             character.Draw(spriteBatch);
             spriteBatch.End();
+
+            hudSpriteBatch.Begin();
+            sharedVariables.Hud.Draw(hudSpriteBatch);
+            hudSpriteBatch.End();
 
             base.Draw(gameTime);
         }

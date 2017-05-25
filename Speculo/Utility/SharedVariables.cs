@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Speculo.GameplayClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,9 @@ namespace Speculo.Utility
 
         public ContentManager Content { get; set; }
         public GraphicsDevice Graphics { get; set; }
+        //public GraphicsDeviceManager GraphicsManager;
+        public Vector2 screenSize { get; set; }
+        public HUD Hud { get; set; }
 
         static bool called = false;
         SharedVariables()
@@ -40,7 +45,8 @@ namespace Speculo.Utility
 
         internal void initVariables()
         {
-            //throw new NotImplementedException();
+            //GraphicsManager = new GraphicsDeviceManager();
+            Hud = new HUD();
         }
     }
 
