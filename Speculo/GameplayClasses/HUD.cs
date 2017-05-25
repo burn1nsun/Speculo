@@ -12,13 +12,19 @@ namespace Speculo.GameplayClasses
     public class HUD
     {
         Utility.SharedVariables sharedVariables = Utility.SharedVariables.Instance;
-        
-        
+
+
         private Vector2 boundsPosition;
         private Rectangle boundsRectangle;
         private Texture2D boundsTexture;
 
         public bool ShowHud { get; set; }
+
+        public Rectangle BoundsRectangle
+        {
+            get { return boundsRectangle; }
+            set { boundsRectangle = value; }
+        }
 
         public HUD()
         {

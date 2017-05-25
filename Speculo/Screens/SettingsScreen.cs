@@ -19,7 +19,9 @@ namespace Speculo.Screens
         Button incrementVolume;
         Button decreaseVolume;
         Button back;
-        
+
+        int centerWidth;
+        int centerHeight;
 
         MouseState presentMouse;
         Game1 game;
@@ -28,8 +30,13 @@ namespace Speculo.Screens
 
         public SettingsScreen(Game1 game)
         {
-            int centerWidth = sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2;
-            int centerHeight = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2;
+            initializeButtons(game);
+        }
+
+        public void initializeButtons(Game1 game)
+        {
+            centerWidth = sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2;
+            centerHeight = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2;
 
             this.game = game;
             Texture2D texture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1");
@@ -39,11 +46,24 @@ namespace Speculo.Screens
             decreaseVolume = new Button(game.Content, "Volume-", new Rectangle(centerWidth - texture.Width / 2, centerHeight + 100, texture.Width, texture.Height), texture);
             back = new Button(game.Content, "Back", new Rectangle(centerWidth - texture.Width / 2, centerHeight + 200, texture.Width, texture.Height), texture);
 
-            Controls.Add(changeResolution);
-            Controls.Add(fullScreenToggle);
-            Controls.Add(incrementVolume);
-            Controls.Add(decreaseVolume);
-            Controls.Add(back);
+            if(Controls == null)
+            {
+                Controls.Add(changeResolution);
+                Controls.Add(fullScreenToggle);
+                Controls.Add(incrementVolume);
+                Controls.Add(decreaseVolume);
+                Controls.Add(back);
+            } else
+            {
+                Controls.Clear();
+
+                Controls.Add(changeResolution);
+                Controls.Add(fullScreenToggle);
+                Controls.Add(incrementVolume);
+                Controls.Add(decreaseVolume);
+                Controls.Add(back);
+            }
+
         }
 
         public override void Update(GameTime gameTime)
@@ -64,6 +84,10 @@ namespace Speculo.Screens
 
                 game.UpdateScreenResolution((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
                 changeResolution.Text = sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X + " x " + sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y;
+            
+                initializeButtons(game);
+                sharedVariables.Hud.BoundsRectangle = new Rectangle(0, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
+                //, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
             }
 
             if (fullScreenToggle.IsLeftClicked)
