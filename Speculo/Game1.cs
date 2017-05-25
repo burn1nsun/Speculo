@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Speculo.CharacterClasses;
-using Speculo.Utility;
+
 
 namespace Speculo
 {
@@ -15,9 +14,9 @@ namespace Speculo
         SpriteBatch spriteBatch;
         SpriteBatch hudSpriteBatch;
 
-        Character character;
 
-        SharedVariables sharedVariables = SharedVariables.Instance;
+
+        Utility.SharedVariables sharedVariables = Utility.SharedVariables.Instance;
 
         public Game1()
         {
@@ -44,7 +43,7 @@ namespace Speculo
             sharedVariables.Graphics = GraphicsDevice;
             sharedVariables.GraphicsManager = graphics;
 
-            character = new Character();
+            
             sharedVariables.initVariables();
 
             this.IsMouseVisible = true;
@@ -97,7 +96,7 @@ namespace Speculo
 
             // TODO: Add your update logic here
 
-            character.Update(gameTime);
+            sharedVariables.CharacterClass.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -113,7 +112,7 @@ namespace Speculo
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            character.Draw(spriteBatch);
+            sharedVariables.CharacterClass.Draw(spriteBatch);
             spriteBatch.End();
 
             hudSpriteBatch.Begin();

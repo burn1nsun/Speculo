@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Speculo.CharacterClasses
 {
-    class Character
+    public class Character
     {
         private Texture2D texture;
         private Vector2 position;

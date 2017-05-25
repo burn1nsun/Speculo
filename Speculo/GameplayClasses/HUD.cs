@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Speculo.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ namespace Speculo.GameplayClasses
 {
     public class HUD
     {
-        SharedVariables sharedVariables = SharedVariables.Instance;
+        Utility.SharedVariables sharedVariables = Utility.SharedVariables.Instance;
         
         
         private Vector2 boundsPosition;
