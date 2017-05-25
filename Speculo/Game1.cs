@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Speculo.Screens;
 using System;
+using System.Collections.Generic;
 
 namespace Speculo
 {
@@ -18,12 +20,19 @@ namespace Speculo
 
         Utility.SharedVariables sharedVariables = Utility.SharedVariables.Instance;
 
+        //screens
+
+        List<BaseScreen> Screens = new List<BaseScreen>();
+        public MenuScreen MenuScreen;
+        public GameScreen GameScreen;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.SynchronizeWithVerticalRetrace = false;
             TargetElapsedTime = TimeSpan.FromTicks(66666);//fps
+            IsMouseVisible = true;
         }
 
         /// <summary>
@@ -62,6 +71,15 @@ namespace Speculo
 
             hudSpriteBatch = new SpriteBatch(GraphicsDevice);
 
+            MenuScreen = new MenuScreen(this);
+            MenuScreen.IsActive = true;
+
+            GameScreen = new GameScreen(this);
+
+            Screens.Add(GameScreen);
+            Screens.Add(MenuScreen);
+            
+
             //sharedVariables.Hud.LoadContent(Content);
             sharedVariables.Hud.ShowHud = true;
 
@@ -96,7 +114,15 @@ namespace Speculo
 
             // TODO: Add your update logic here
 
-            sharedVariables.CharacterClass.Update(gameTime);
+            Screens.ForEach(s =>
+            {
+                if (s.IsActive)
+                {
+                    s.Update(gameTime);
+                }     
+            });
+
+            //sharedVariables.CharacterClass.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -111,9 +137,17 @@ namespace Speculo
 
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            sharedVariables.CharacterClass.Draw(spriteBatch);
-            spriteBatch.End();
+            //spriteBatch.Begin();
+            //sharedVariables.CharacterClass.Draw(spriteBatch);
+            //spriteBatch.End();
+
+            Screens.ForEach(s =>
+            {
+                if (s.IsActive)
+                {
+                    s.Draw(spriteBatch);
+                }
+            });
 
             hudSpriteBatch.Begin();
             sharedVariables.Hud.Draw(hudSpriteBatch);
