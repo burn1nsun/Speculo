@@ -14,9 +14,7 @@ namespace Speculo.GameplayClasses
         Utility.SharedVariables sharedVariables = Utility.SharedVariables.Instance;
 
 
-        private Vector2 boundsPosition;
-        private Rectangle boundsRectangle;
-        private Texture2D boundsTexture;
+
 
         TimeSpan displayTime;
         TimeSpan lastDisplayed;
@@ -30,11 +28,7 @@ namespace Speculo.GameplayClasses
 
         public bool ShowHud { get; set; }
 
-        public Rectangle BoundsRectangle
-        {
-            get { return boundsRectangle; }
-            set { boundsRectangle = value; }
-        }
+
 
         public bool ShowVolumeLevel
         {
@@ -53,14 +47,13 @@ namespace Speculo.GameplayClasses
 
         public void Initialize()
         {
-            boundsPosition = new Vector2(0, 0);
-            boundsRectangle = new Rectangle((int)boundsPosition.X, (int)boundsPosition.Y, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
+
             
             volumeLevelTxtPos = new Vector2(10, 25);
         }
         public void LoadContent(ContentManager Content)
         {
-            boundsTexture = Content.Load<Texture2D>("Textures/bounds");
+            
             hudFont = Content.Load<SpriteFont>("Fonts/Tahoma");
         }
 
@@ -78,9 +71,7 @@ namespace Speculo.GameplayClasses
         public void Draw(SpriteBatch spriteBatch)
         {
             if (ShowHud)
-            {
-                spriteBatch.Draw(boundsTexture, boundsRectangle, Color.White);
-                
+            {   
                 if(showVolumeLevel)
                 {
                     spriteBatch.DrawString(hudFont, volumeLevelTxt, volumeLevelTxtPos, Color.White);

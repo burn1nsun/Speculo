@@ -125,8 +125,8 @@ namespace Speculo
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == Microsoft.Xna.Framework.Input.ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
-                Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == Microsoft.Xna.Framework.Input.ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
+            //    Exit();
 
             // TODO: Add your update logic here
 
@@ -139,8 +139,6 @@ namespace Speculo
             });
 
             sharedVariables.Hud.Update(gameTime);
-
-            //sharedVariables.CharacterClass.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -155,9 +153,6 @@ namespace Speculo
 
 
             // TODO: Add your drawing code here
-            //spriteBatch.Begin();
-            //sharedVariables.CharacterClass.Draw(spriteBatch);
-            //spriteBatch.End();
 
             Screens.ForEach(s =>
             {

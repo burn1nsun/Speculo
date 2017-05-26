@@ -14,26 +14,31 @@ namespace Speculo.Screens
     public class MenuScreen : BaseScreen
     {
         Utility.SharedVariables sharedVariables = Utility.SharedVariables.Instance;
+        Game1 game;
+
         Button btnPlay;
         Button btnSettings;
         Button btnQuit;
+        List<Control> Controls = new List<Control>();
 
         int centerWidth;
         int centerHeight;
-        List<Control> Controls = new List<Control>();
-
-        MouseState presentMouse;
+        
         Texture2D texture;
-        Game1 game;
+        Texture2D bgTexture;
+        Rectangle bgRectangle;
 
         private SoundEffect menuPlaySound;
         private SoundEffect clickSound;
         private SoundEffect hoverSound;
         private SoundEffect backSound;
 
+        MouseState presentMouse;
+
         public MenuScreen(Game1 game)
         {
             this.texture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1");
+            bgTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Backgrounds/menubg");
             initializeButtons(game);
             menuPlaySound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuplay");
             clickSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuclick");
@@ -57,6 +62,8 @@ namespace Speculo.Screens
             Controls.Add(btnPlay);
             Controls.Add(btnSettings);
             Controls.Add(btnQuit);
+
+            bgRectangle = new Rectangle(0, 0, sharedVariables.GraphicsManager.PreferredBackBufferWidth, sharedVariables.GraphicsManager.PreferredBackBufferHeight);
         }
         public override void Update(GameTime gameTime)
         {
@@ -89,6 +96,7 @@ namespace Speculo.Screens
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+            spriteBatch.Draw(bgTexture, bgRectangle, Color.White);
             foreach(Control control in Controls)
             {
                 control.Draw(spriteBatch);

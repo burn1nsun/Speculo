@@ -15,28 +15,32 @@ namespace Speculo.Screens
     {
         Utility.SharedVariables sharedVariables = Utility.SharedVariables.Instance;
 
+        Game1 game;
+
         Button changeResolution;
         Button fullScreenToggle;
         Button incrementVolume;
         Button decreaseVolume;
         Button back;
+        List<Control> Controls = new List<Control>();
 
         int centerWidth;
         int centerHeight;
+        private Texture2D bgTexture;
+        private Rectangle bgRectangle;
 
         Texture2D texture;
         MouseState presentMouse;
-        Game1 game;
-
-        List<Control> Controls = new List<Control>();
 
         private SoundEffect clickSound;
         private SoundEffect hoverSound;
         private SoundEffect backSound;
 
+
         public SettingsScreen(Game1 game)
         {
             texture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1");
+            bgTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Backgrounds/settingsbg");
             initializeButtons(game);
 
             clickSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuclick");
@@ -76,6 +80,8 @@ namespace Speculo.Screens
                 Controls.Add(back);
             }
 
+            bgRectangle = new Rectangle(0, 0, sharedVariables.GraphicsManager.PreferredBackBufferWidth, sharedVariables.GraphicsManager.PreferredBackBufferHeight);
+
         }
 
         public void adjustToResolution()
@@ -93,6 +99,8 @@ namespace Speculo.Screens
             game.MenuScreen.initializeButtons(game);
             sharedVariables.GamePlay.initialize();
             sharedVariables.CharacterClass.initialize();
+            game.GameScreen.initialize();
+            //game.Window.Position = new Point(0, 0);
 
             if (wasFullScreen)
             {
@@ -153,6 +161,7 @@ namespace Speculo.Screens
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+            spriteBatch.Draw(bgTexture, bgRectangle, Color.White);
             foreach (Control control in Controls)
             {
                 control.Draw(spriteBatch);

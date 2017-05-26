@@ -35,7 +35,6 @@ namespace Speculo.CharacterClasses
             {
                 texture = sharedVariables.Content.Load<Texture2D>("Textures/character");
             }
-
             initialize();
 
         }
@@ -45,6 +44,7 @@ namespace Speculo.CharacterClasses
             position = new Vector2(0, 0);
             characterRectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             position.Y = sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100 * 10);
+            position.X = sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 2;
         }
 
         public void Update(GameTime gameTime)
