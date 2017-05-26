@@ -13,8 +13,10 @@ namespace Speculo.UserControls
     {
         public Button(ContentManager Content, string newText, Rectangle newRectangle, Texture2D texture)
         {
+            Utility.SharedVariables sharedVariables = Utility.SharedVariables.Instance;
             this.texture = texture;
-            font = Content.Load<SpriteFont>("Fonts/Tahoma");
+            
+            font = sharedVariables.Hud.hudFont;
 
             text = newText;
 
@@ -23,7 +25,7 @@ namespace Speculo.UserControls
             IsVisible = true;
             IsEnabled = true;
         }
-        
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             if(IsVisible)

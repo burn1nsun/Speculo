@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Speculo.UserControls;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Speculo.Screens
 {
@@ -29,11 +30,19 @@ namespace Speculo.Screens
 
         List<Control> Controls = new List<Control>();
 
+        private SoundEffect clickSound;
+        private SoundEffect hoverSound;
+        private SoundEffect backSound;
+
         public SettingsScreen(Game1 game)
         {
             texture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1");
             initializeButtons(game);
-            
+
+            clickSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuclick");
+            hoverSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/MenuHit");
+            backSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuback");
+
         }
 
         public void initializeButtons(Game1 game)
@@ -80,7 +89,7 @@ namespace Speculo.Screens
             changeResolution.Text = sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X + " x " + sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y;
 
             initializeButtons(game);
-            sharedVariables.Hud.BoundsRectangle = new Rectangle(0, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
+            sharedVariables.Hud.Initialize();
             game.MenuScreen.initializeButtons(game);
             sharedVariables.GamePlay.initialize();
             sharedVariables.CharacterClass.initialize();
@@ -102,6 +111,8 @@ namespace Speculo.Screens
 
             if (changeResolution.IsLeftClicked)
             {
+
+                clickSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
                 sharedVariables.ScreenSizeIndex++;
                 if(sharedVariables.ScreenSizeIndex == sharedVariables.ScreenSizes.Count)
                 {
@@ -112,21 +123,28 @@ namespace Speculo.Screens
 
             if (fullScreenToggle.IsLeftClicked)
             {
+                clickSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
                 game.ToggleFullScreen();
             }
 
             if (incrementVolume.IsLeftClicked)
             {
-                
+                sharedVariables.SoundFxVolume = MathHelper.Clamp(sharedVariables.SoundFxVolume + 0.1f, 0.0f, 1.0f);
+                clickSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+                sharedVariables.Hud.volumeLevelChanged(gameTime);
             }
 
             if (decreaseVolume.IsLeftClicked)
             {
+                sharedVariables.SoundFxVolume = MathHelper.Clamp(sharedVariables.SoundFxVolume - 0.1f, 0.0f, 1.0f);
+                clickSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
 
+                sharedVariables.Hud.volumeLevelChanged(gameTime);
             }
 
             if (back.IsLeftClicked)
             {
+                backSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
                 this.IsActive = false;
                 game.MenuScreen.IsActive = true;
             }

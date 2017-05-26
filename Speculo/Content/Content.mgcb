@@ -59,3 +59,27 @@
 #begin cursor.cur
 /copy:cursor.cur
 
+#begin Sound/MenuSounds/menuback.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/MenuSounds/menuback.wav
+
+#begin Sound/MenuSounds/menuclick.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/MenuSounds/menuclick.wav
+
+#begin Sound/MenuSounds/MenuHit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/MenuSounds/MenuHit.wav
+
+#begin Sound/MenuSounds/menuplay.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/MenuSounds/menuplay.wav
+

@@ -18,6 +18,16 @@ namespace Speculo.GameplayClasses
         private Rectangle boundsRectangle;
         private Texture2D boundsTexture;
 
+        TimeSpan displayTime;
+        TimeSpan lastDisplayed;
+
+        private Vector2 volumeLevelTxtPos;
+        private string volumeLevelTxt;
+        private bool showVolumeLevel;
+
+
+        public SpriteFont hudFont; 
+
         public bool ShowHud { get; set; }
 
         public Rectangle BoundsRectangle
@@ -26,22 +36,43 @@ namespace Speculo.GameplayClasses
             set { boundsRectangle = value; }
         }
 
+        public bool ShowVolumeLevel
+        {
+            get { return showVolumeLevel; }
+            set { showVolumeLevel = value; }
+        }
+
         public HUD()
         {
-            boundsTexture = sharedVariables.Content.Load<Texture2D>("Textures/bounds");
+            showVolumeLevel = false;
+            LoadContent(sharedVariables.Content);
+            volumeLevelTxt = "SoundFx volume: " + String.Format("{0:0.0}", sharedVariables.SoundFxVolume) + "\r\n" + "Music volume: " + String.Format("{0:0.0}", sharedVariables.MusicVolume);
 
-            boundsPosition = new Vector2(0, 0);
-            boundsRectangle = new Rectangle ((int)boundsPosition.X, (int)boundsPosition.Y, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
+            Initialize();
         }
 
+        public void Initialize()
+        {
+            boundsPosition = new Vector2(0, 0);
+            boundsRectangle = new Rectangle((int)boundsPosition.X, (int)boundsPosition.Y, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
+            
+            volumeLevelTxtPos = new Vector2(10, 25);
+        }
         public void LoadContent(ContentManager Content)
         {
-            //hudFont = Content.Load<SpriteFont>("Courier New");
+            boundsTexture = Content.Load<Texture2D>("Textures/bounds");
+            hudFont = Content.Load<SpriteFont>("Fonts/Tahoma");
         }
 
-        public void Update(GameTime gametime)
+        public void Update(GameTime gameTime)
         {
-
+            if(showVolumeLevel)
+            {
+                if (gameTime.TotalGameTime > lastDisplayed + displayTime)
+                {
+                    showVolumeLevel = false;
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -49,7 +80,22 @@ namespace Speculo.GameplayClasses
             if (ShowHud)
             {
                 spriteBatch.Draw(boundsTexture, boundsRectangle, Color.White);
+                
+                if(showVolumeLevel)
+                {
+                    spriteBatch.DrawString(hudFont, volumeLevelTxt, volumeLevelTxtPos, Color.White);
+                }  
             }
+        }
+
+        public void volumeLevelChanged(GameTime gameTime)
+        {
+            displayTime = TimeSpan.FromSeconds(3);
+            lastDisplayed = gameTime.TotalGameTime;
+
+            volumeLevelTxt = "SoundFx volume: " + String.Format("{0: 0.0}", sharedVariables.SoundFxVolume) + "\r\n" + "Music volume: " + String.Format("{0:0.0}", sharedVariables.MusicVolume);
+
+            showVolumeLevel = true;
         }
     }
 }

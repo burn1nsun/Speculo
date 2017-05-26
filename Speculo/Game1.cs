@@ -138,6 +138,8 @@ namespace Speculo
                 }     
             });
 
+            sharedVariables.Hud.Update(gameTime);
+
             //sharedVariables.CharacterClass.Update(gameTime);
 
             base.Update(gameTime);
