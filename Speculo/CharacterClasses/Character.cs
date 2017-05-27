@@ -14,7 +14,7 @@ namespace Speculo.CharacterClasses
     {
         private Texture2D texture;
         private Vector2 position;
-        
+
         //private Vector2 velocity;
         //private Vector2 origin;
 
@@ -22,6 +22,11 @@ namespace Speculo.CharacterClasses
 
         SharedVariables sharedVariables = SharedVariables.Instance;
 
+        public Vector2 Position
+        {
+            get {  return this.position;  }
+            set { this.position = value; }
+        }
         public Rectangle Rectangle
         {
             get { return this.characterRectangle; }

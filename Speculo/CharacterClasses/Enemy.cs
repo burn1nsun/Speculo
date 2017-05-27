@@ -11,11 +11,13 @@ namespace Speculo.CharacterClasses
 {
     public class Enemy
     {
+        public List<Bullet> Projectiles = new List<Bullet>();
+        List<Bullet> projectilesToRemove = new List<Bullet>();
+
+
         private Texture2D texture;
         private Vector2 position;
 
-        private Vector2 velocity;
-        private Vector2 origin;
         private TimeSpan approachTime;
         private float yAmount;
         private float xPos;
@@ -33,16 +35,21 @@ namespace Speculo.CharacterClasses
             set { enemyRectangle = value; }
         }
 
+        public static Texture2D ProjectileTexture { get; set; }
+
 
         public Enemy(TimeSpan approachTime, float xPos)
         {
             if (texture == null)
             {
                 texture = sharedVariables.Content.Load<Texture2D>("Textures/Enemy");
+                ProjectileTexture = sharedVariables.Content.Load<Texture2D>("Textures/Projectiles/Projectile1");
             }
             this.approachTime = approachTime;
             this.xPos = xPos;
             initialize(xPos);
+
+            
         }
 
         public void initialize(float xPos)
@@ -59,11 +66,38 @@ namespace Speculo.CharacterClasses
 
         public void Update(GameTime gameTime)
         {
-            if(gameTime.TotalGameTime > sharedVariables.GamePlay.GameStartTime + approachTime)
+            if (gameTime.TotalGameTime > sharedVariables.GamePlay.GameStartTime + approachTime)
             {
                 enemySent = true;
                 sendEnemy();
             }
+
+            updateProjectileTravel(gameTime);
+            removeProjectiles();
+        }
+
+        void updateProjectileTravel(GameTime gameTime)
+        {
+            foreach (Bullet proj in Projectiles)
+            {
+                if (!proj.IsProjectileDead)
+                {
+                    proj.Update(gameTime);
+                }
+                else
+                {
+                    projectilesToRemove.Add(proj);
+                }
+            }
+        }
+
+        void removeProjectiles()
+        {
+            foreach (Bullet proj in projectilesToRemove)
+            {
+                Projectiles.Remove(proj);
+            }
+            projectilesToRemove.Clear();
         }
 
         public void sendEnemy()
@@ -82,7 +116,9 @@ namespace Speculo.CharacterClasses
 
         public void shoot()
         {
-
+            Bullet projectile = new Bullet(position,
+            ProjectileTexture, sharedVariables.Graphics);
+            Projectiles.Add(projectile);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -91,7 +127,12 @@ namespace Speculo.CharacterClasses
             {
                 spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, enemyRectangle.Width, enemyRectangle.Height), Color.White);
             }
-            
+
+            foreach (Bullet proj in Projectiles)
+            {
+                proj.Draw(spriteBatch);
+            }
+
         }
     }
 }

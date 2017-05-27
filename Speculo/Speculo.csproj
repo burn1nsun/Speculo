@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CharacterClasses\Bullet.cs" />
     <Compile Include="CharacterClasses\Enemy.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="CharacterClasses\Character.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="UserControls\Button.cs" />
     <Compile Include="UserControls\Control.cs" />
     <Compile Include="Utility\NativeMethods.cs" />
+    <Compile Include="Utility\RectangleHelper.cs" />
     <Compile Include="Utility\SharedVariables.cs" />
   </ItemGroup>
   <ItemGroup>
