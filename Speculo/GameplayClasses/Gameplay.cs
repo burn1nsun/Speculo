@@ -21,6 +21,7 @@ namespace Speculo.GameplayClasses
         public Character CharacterClass { get; set; }
 
         public List<Enemy> enemyList;
+        public List<Enemy> enemiesToRemove;
 
         public TimeSpan GameStartTime
         {
@@ -46,6 +47,8 @@ namespace Speculo.GameplayClasses
             CharacterClass = new Character();
 
             enemyList = new List<Enemy>();
+            enemiesToRemove = new List<Enemy>();
+
             gameStartTime = sharedVariables.gameTime.TotalGameTime;
 
             addEnemies();
@@ -55,9 +58,17 @@ namespace Speculo.GameplayClasses
         {
             gameRuntime = gameTime.TotalGameTime - gameStartTime;
 
-            foreach(Enemy enemy in enemyList)
+            foreach (Enemy enemy in enemyList.ToList()) //tolist because otherwise otherwise Collection was modified; enumeration operation may not execute exception
             {
-                enemy.Update(gameTime);
+                if (!enemy.IsDead)
+                {
+                    enemy.Update(gameTime);
+                }
+                else
+                {
+                    enemiesToRemove.Add(enemy);
+                    removeEnemies();
+                }
             }
         }
 
@@ -65,6 +76,15 @@ namespace Speculo.GameplayClasses
         {
             enemyList.Clear();
             enemyList.Add(new Enemy(TimeSpan.FromSeconds(2), 200));
+        }
+
+        void removeEnemies()
+        {
+            foreach (Enemy enemy in enemiesToRemove)
+            {
+                enemyList.Remove(enemy);
+            }
+            enemiesToRemove.Clear();
         }
 
     }

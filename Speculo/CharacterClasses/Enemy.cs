@@ -28,11 +28,24 @@ namespace Speculo.CharacterClasses
         SharedVariables sharedVariables = SharedVariables.Instance;
         private bool hasShot;
         private bool enemySent;
+        private bool isDead;
 
         public Rectangle EnemyRectangle
         {
             get { return enemyRectangle; }
             set { enemyRectangle = value; }
+        }
+
+        public bool IsDead
+        {
+            get { return isDead; }
+            set { isDead = value; }
+        }
+
+        public Vector2 Position
+        {
+            get { return this.position; }
+            set { this.position = value; }
         }
 
         public static Texture2D ProjectileTexture { get; set; }
@@ -54,6 +67,7 @@ namespace Speculo.CharacterClasses
 
         public void initialize(float xPos)
         {
+            isDead = false;
             enemySent = false;
             hasShot = false;
 
@@ -117,8 +131,13 @@ namespace Speculo.CharacterClasses
         public void shoot()
         {
             Bullet projectile = new Bullet(position,
-            ProjectileTexture, sharedVariables.Graphics);
+            ProjectileTexture, sharedVariables.Graphics, this);
             Projectiles.Add(projectile);
+        }
+
+        public void getHit()
+        {
+            this.isDead = true;
         }
 
         public void Draw(SpriteBatch spriteBatch)
