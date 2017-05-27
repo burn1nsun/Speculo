@@ -83,7 +83,7 @@
 /processorParam:Quality=Best
 /build:Sound/MenuSounds/menuplay.wav
 
-#begin Textures/MenuObjects/Backgrounds/settingsbg.jpg
+#begin Textures\MenuObjects\Backgrounds\menubg.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -93,7 +93,31 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Textures/MenuObjects/Backgrounds/settingsbg.jpg
+/build:Textures\MenuObjects\Backgrounds\menubg.jpg
+
+#begin Textures\MenuObjects\Backgrounds\pausebg.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures\MenuObjects\Backgrounds\pausebg.png
+
+#begin Textures\MenuObjects\Backgrounds\settingsbg.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures\MenuObjects\Backgrounds\settingsbg.jpg
 
 #begin Textures/MenuObjects/Backgrounds/menubg.jpg
 /importer:TextureImporter
@@ -118,4 +142,28 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/MenuObjects/Backgrounds/pausebg.png
+
+#begin Textures/MenuObjects/Backgrounds/settingsbg.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/MenuObjects/Backgrounds/settingsbg.jpg
+
+#begin Textures/Enemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Enemy.png
 

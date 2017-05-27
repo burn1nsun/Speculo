@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Speculo.Screens;
 using Speculo.Utility;
 using System;
@@ -52,6 +51,7 @@ namespace Speculo
             sharedVariables.Graphics = GraphicsDevice;
             sharedVariables.GraphicsManager = graphics;
             sharedVariables.initVariables();
+            //sharedVariables.gameTime = GameTime;
 
             graphics.PreferredBackBufferWidth = (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X;
             graphics.PreferredBackBufferHeight = (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y;
@@ -138,6 +138,7 @@ namespace Speculo
                 }     
             });
 
+            sharedVariables.Update(gameTime);
             sharedVariables.Hud.Update(gameTime);
 
             base.Update(gameTime);

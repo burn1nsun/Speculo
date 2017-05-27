@@ -42,7 +42,7 @@ namespace Speculo.CharacterClasses
         public void initialize()
         {
             position = new Vector2(0, 0);
-            characterRectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            characterRectangle = new Rectangle((int)position.X, (int)position.Y, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 15, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 69);
             position.Y = sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100 * 10);
             position.X = sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 2;
         }
@@ -61,15 +61,15 @@ namespace Speculo.CharacterClasses
             {
                 position.X = sharedVariables.GamePlay.PlayArea.X;
             }
-            if(position.X + texture.Width > sharedVariables.GamePlay.PlayArea.Width + sharedVariables.GamePlay.PlayArea.X)
+            if(position.X + characterRectangle.Width > sharedVariables.GamePlay.PlayArea.Width + sharedVariables.GamePlay.PlayArea.X)
             {
-                position.X = (sharedVariables.GamePlay.PlayArea.Width + sharedVariables.GamePlay.PlayArea.X) - texture.Width;
+                position.X = (sharedVariables.GamePlay.PlayArea.Width + sharedVariables.GamePlay.PlayArea.X) - characterRectangle.Width;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, characterRectangle, Color.White);
+            spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, characterRectangle.Width, characterRectangle.Height), Color.White);
         }
     }
 }

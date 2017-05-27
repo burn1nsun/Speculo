@@ -98,9 +98,9 @@ namespace Speculo.Screens
             sharedVariables.Hud.Initialize();
             game.MenuScreen.initializeButtons(game);
             sharedVariables.GamePlay.initialize();
-            sharedVariables.CharacterClass.initialize();
+            sharedVariables.GamePlay.CharacterClass.initialize();
             game.GameScreen.initialize();
-            //game.Window.Position = new Point(0, 0);
+            game.Window.Position = new Point(0, 0);
 
             if (wasFullScreen)
             {

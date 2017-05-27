@@ -98,7 +98,8 @@ namespace Speculo.Screens
             MouseState mouse = Mouse.GetState();
             if(!paused)
             {
-                sharedVariables.CharacterClass.Update(gameTime);
+                sharedVariables.GamePlay.CharacterClass.Update(gameTime);
+                sharedVariables.GamePlay.Update(gameTime);
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
@@ -117,8 +118,7 @@ namespace Speculo.Screens
                 {
                     clickSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
                     paused = false;
-                    //???
-                    sharedVariables.CharacterClass.initialize();
+                    sharedVariables.GamePlay.initialize();
                 }
 
                 if (btnQuit.IsLeftClicked)
@@ -133,15 +133,18 @@ namespace Speculo.Screens
                     control.Update(mouse);
                 }
             }
-            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
             spriteBatch.Draw(boundsTexture, boundsRectangle, Color.White);
-            sharedVariables.CharacterClass.Draw(spriteBatch);
+            sharedVariables.GamePlay.CharacterClass.Draw(spriteBatch);
 
+            foreach(Enemy enemy in sharedVariables.GamePlay.enemyList)
+            {
+                enemy.Draw(spriteBatch);
+            }
 
             //pause
             if(paused)
@@ -152,7 +155,6 @@ namespace Speculo.Screens
                     control.Draw(spriteBatch);
                 }
             }
-
             spriteBatch.End();
         }
     }

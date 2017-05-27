@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Speculo.CharacterClasses;
 using Speculo.UserControls;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,19 @@ namespace Speculo.GameplayClasses
     {
         Utility.SharedVariables sharedVariables = Utility.SharedVariables.Instance;
 
+        private TimeSpan gameRuntime;
+        private TimeSpan gameStartTime;
         private Rectangle playArea;
+
+        public Character CharacterClass { get; set; }
+
+        public List<Enemy> enemyList;
+
+        public TimeSpan GameStartTime
+        {
+            get { return gameStartTime;  }
+            set { this.gameStartTime = value; }
+        }
 
         //public PlayArea() { get; set;}
         public Rectangle PlayArea
@@ -30,9 +43,29 @@ namespace Speculo.GameplayClasses
 
         public void initialize()
         {
+            CharacterClass = new Character();
+
+            enemyList = new List<Enemy>();
+            gameStartTime = sharedVariables.gameTime.TotalGameTime;
+
+            addEnemies();
             playArea = new Rectangle(((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
         }
+        public void Update(GameTime gameTime)
+        {
+            gameRuntime = gameTime.TotalGameTime - gameStartTime;
 
+            foreach(Enemy enemy in enemyList)
+            {
+                enemy.Update(gameTime);
+            }
+        }
+
+        public void addEnemies()
+        {
+            enemyList.Clear();
+            enemyList.Add(new Enemy(TimeSpan.FromSeconds(2), 200));
+        }
 
     }
 }
