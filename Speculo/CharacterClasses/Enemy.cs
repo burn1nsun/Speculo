@@ -31,6 +31,7 @@ namespace Speculo.CharacterClasses
         private bool enemySent;
         private bool isDead;
         private SoundEffect dieSound;
+        private SoundEffect comboBreakSound;
 
         public Rectangle EnemyRectangle
         {
@@ -60,6 +61,7 @@ namespace Speculo.CharacterClasses
                 texture = sharedVariables.Content.Load<Texture2D>("Textures/Enemy");
                 ProjectileTexture = sharedVariables.Content.Load<Texture2D>("Textures/Projectiles/Projectile1");
                 dieSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/enemyDie");
+                comboBreakSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/combobreak");
             }
             this.approachTime = approachTime;
             this.xPos = xPos;
@@ -104,6 +106,8 @@ namespace Speculo.CharacterClasses
                 else
                 {
                     projectilesToRemove.Add(proj);
+                    isDead = true;
+                    comboBreakSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
                 }
             }
         }
@@ -122,7 +126,7 @@ namespace Speculo.CharacterClasses
             if(!hasShot)
             {
                 position = new Vector2(sharedVariables.GamePlay.PlayArea.X + xPos, yPos);
-                yPos++;
+                yPos += 2;
                 if (yPos >= yAmount)
                 {
                     hasShot = true;

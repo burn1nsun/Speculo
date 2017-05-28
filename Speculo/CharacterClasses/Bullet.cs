@@ -34,7 +34,7 @@ namespace Speculo.CharacterClasses
         public Bullet(Vector2 bulletStartPos, Texture2D projectileTexture, GraphicsDevice g, Enemy enemy)
         {
             this.enemy = enemy;
-            this.direction = new Vector2(0, 1);
+            this.direction = new Vector2(0, 1.5f);
             this.bulletStartPos = bulletStartPos;
             this.bulletTexture = projectileTexture;
             this.bulletPosition = bulletStartPos;

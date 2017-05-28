@@ -58,12 +58,15 @@ namespace Speculo.Screens
         private SoundEffect clickSound;
         private SoundEffect hoverSound;
         private SoundEffect backSound;
+        private Rectangle buttonHoverRectangle;
+        private Texture2D hoverTexture;
 
         void LoadContent()
         {
             boundsTexture = Content.Load<Texture2D>("Textures/bounds");
             pausedTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Backgrounds/pausebg");
             buttonTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1");
+            hoverTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/buttonOverlay");
 
             menuPlaySound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuplay");
             clickSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuclick");
@@ -108,7 +111,43 @@ namespace Speculo.Screens
             }
             else if (paused)
             {
-                if(btnContinue.IsLeftClicked)
+
+                if (btnContinue.IsMouseOver)
+                {
+                    buttonHoverRectangle = new Rectangle(btnContinue.Rectangle.X, btnContinue.Rectangle.Y, btnContinue.Rectangle.Width, btnContinue.Rectangle.Height);
+                    if (!btnContinue.HoverSoundPlayed && btnContinue.IsMouseOver)
+                    {
+                        btnContinue.HoverSoundPlayed = true;
+                        hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+                    }
+                }
+                else if (!btnContinue.IsMouseOver) { btnContinue.HoverSoundPlayed = false; }
+
+                if (btnRetry.IsMouseOver)
+                {
+                    buttonHoverRectangle = new Rectangle(btnRetry.Rectangle.X, btnRetry.Rectangle.Y, btnRetry.Rectangle.Width, btnRetry.Rectangle.Height);
+                    if (!btnRetry.HoverSoundPlayed && btnRetry.IsMouseOver)
+                    {
+                        btnRetry.HoverSoundPlayed = true;
+                        hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+                    }
+                }
+                else if (!btnRetry.IsMouseOver) { btnRetry.HoverSoundPlayed = false; }
+
+
+                if (btnQuit.IsMouseOver)
+                {
+                    buttonHoverRectangle = new Rectangle(btnQuit.Rectangle.X, btnQuit.Rectangle.Y, btnQuit.Rectangle.Width, btnQuit.Rectangle.Height);
+                    if (!btnQuit.HoverSoundPlayed && btnQuit.IsMouseOver)
+                    {
+                        btnQuit.HoverSoundPlayed = true;
+                        hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+                    }
+                }
+                else if (!btnQuit.IsMouseOver) { btnQuit.HoverSoundPlayed = false; }
+
+
+                if (btnContinue.IsLeftClicked)
                 {
                     menuPlaySound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
                     paused = false;
@@ -153,6 +192,10 @@ namespace Speculo.Screens
                 foreach (Control control in Controls)
                 {
                     control.Draw(spriteBatch);
+                    if(control.IsMouseOver)
+                    {
+                        spriteBatch.Draw(hoverTexture, buttonHoverRectangle, Color.White);
+                    }
                 }
             }
             spriteBatch.End();

@@ -15,6 +15,8 @@ namespace Speculo.UserControls
         protected MouseState presentMouse;
         protected MouseState pastMouse;
 
+        protected bool hoverSoundPlayed;
+
         protected SpriteFont font;
 
         protected ContentManager Content;
@@ -34,6 +36,12 @@ namespace Speculo.UserControls
         {
             get { return isEnabled; }
             set { isEnabled = value; }
+        }
+
+        public bool HoverSoundPlayed
+        {
+            get { return hoverSoundPlayed; }
+            set { hoverSoundPlayed = value; }
         }
 
         private Rectangle rectangle;

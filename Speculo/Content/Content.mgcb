@@ -191,3 +191,27 @@
 /processorParam:Quality=Best
 /build:Sound/Gameplay/catchBullet.wav
 
+#begin Sound/MenuSounds/buttonHover.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/MenuSounds/buttonHover.wav
+
+#begin Textures/MenuObjects/Buttons/buttonOverlay.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/MenuObjects/Buttons/buttonOverlay.png
+
+#begin Sound/Gameplay/combobreak.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Gameplay/combobreak.wav
+

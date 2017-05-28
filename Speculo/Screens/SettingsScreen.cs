@@ -35,17 +35,19 @@ namespace Speculo.Screens
         private SoundEffect clickSound;
         private SoundEffect hoverSound;
         private SoundEffect backSound;
-
+        private Texture2D hoverTexture;
+        private Rectangle buttonHoverRectangle;
 
         public SettingsScreen(Game1 game)
         {
             texture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1");
             bgTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Backgrounds/settingsbg");
+            hoverTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/buttonOverlay");
             initializeButtons(game);
 
             clickSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuclick");
-            hoverSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/MenuHit");
             backSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuback");
+            hoverSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/MenuHit");
 
         }
 
@@ -62,7 +64,7 @@ namespace Speculo.Screens
             decreaseVolume = new Button(game.Content, "Volume-", new Rectangle(centerWidth - texture.Width / 2, centerHeight + 100, texture.Width, texture.Height), texture);
             back = new Button(game.Content, "Back", new Rectangle(centerWidth - texture.Width / 2, centerHeight + 200, texture.Width, texture.Height), texture);
 
-            if(Controls == null)
+            if (Controls == null)
             {
                 Controls.Add(changeResolution);
                 Controls.Add(fullScreenToggle);
@@ -117,9 +119,63 @@ namespace Speculo.Screens
                 control.Update(presentMouse);
             }
 
+            if (changeResolution.IsMouseOver)
+            {
+                buttonHoverRectangle = new Rectangle(changeResolution.Rectangle.X, changeResolution.Rectangle.Y, changeResolution.Rectangle.Width, changeResolution.Rectangle.Height);
+                if (!changeResolution.HoverSoundPlayed && changeResolution.IsMouseOver)
+                {
+                    changeResolution.HoverSoundPlayed = true;
+                    hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+                }
+            }
+            else if (!changeResolution.IsMouseOver) { changeResolution.HoverSoundPlayed = false; }
+
+            if (fullScreenToggle.IsMouseOver)
+            {
+                buttonHoverRectangle = new Rectangle(fullScreenToggle.Rectangle.X, fullScreenToggle.Rectangle.Y, fullScreenToggle.Rectangle.Width, fullScreenToggle.Rectangle.Height);
+                if (!fullScreenToggle.HoverSoundPlayed && fullScreenToggle.IsMouseOver)
+                {
+                    fullScreenToggle.HoverSoundPlayed = true;
+                    hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+                }
+            }
+            else if (!fullScreenToggle.IsMouseOver) { fullScreenToggle.HoverSoundPlayed = false; }
+
+
+            if (incrementVolume.IsMouseOver)
+            {
+                buttonHoverRectangle = new Rectangle(incrementVolume.Rectangle.X, incrementVolume.Rectangle.Y, incrementVolume.Rectangle.Width, incrementVolume.Rectangle.Height);
+                if (!incrementVolume.HoverSoundPlayed && incrementVolume.IsMouseOver)
+                {
+                    incrementVolume.HoverSoundPlayed = true;
+                    hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+                }
+            }
+            else if (!incrementVolume.IsMouseOver) { incrementVolume.HoverSoundPlayed = false; }
+
+            if (decreaseVolume.IsMouseOver)
+            {
+                buttonHoverRectangle = new Rectangle(decreaseVolume.Rectangle.X, decreaseVolume.Rectangle.Y, decreaseVolume.Rectangle.Width, decreaseVolume.Rectangle.Height);
+                if (!decreaseVolume.HoverSoundPlayed && decreaseVolume.IsMouseOver)
+                {
+                    decreaseVolume.HoverSoundPlayed = true;
+                    hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+                }
+            }
+            else if (!decreaseVolume.IsMouseOver) { decreaseVolume.HoverSoundPlayed = false; }
+
+            if (back.IsMouseOver)
+            {
+                buttonHoverRectangle = new Rectangle(back.Rectangle.X, back.Rectangle.Y, back.Rectangle.Width, back.Rectangle.Height);
+                if (!back.HoverSoundPlayed && back.IsMouseOver)
+                {
+                    back.HoverSoundPlayed = true;
+                    hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+                }
+            }
+
             if (changeResolution.IsLeftClicked)
             {
-
                 clickSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
                 sharedVariables.ScreenSizeIndex++;
                 if(sharedVariables.ScreenSizeIndex == sharedVariables.ScreenSizes.Count)
@@ -165,6 +221,10 @@ namespace Speculo.Screens
             foreach (Control control in Controls)
             {
                 control.Draw(spriteBatch);
+                if (control.IsMouseOver)
+                {
+                    spriteBatch.Draw(hoverTexture, buttonHoverRectangle, Color.White);
+                }
             }
             spriteBatch.End();
         }

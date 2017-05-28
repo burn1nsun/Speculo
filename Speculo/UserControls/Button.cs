@@ -24,6 +24,8 @@ namespace Speculo.UserControls
 
             IsVisible = true;
             IsEnabled = true;
+
+            hoverSoundPlayed = false;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

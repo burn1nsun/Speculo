@@ -80,22 +80,21 @@ namespace Speculo.GameplayClasses
             enemyList.Clear();
 
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2000), playAreaSector * 1));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2200), playAreaSector * 3));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2300), playAreaSector * 2));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2400), playAreaSector * 1));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2600), playAreaSector * 2));
 
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2200), playAreaSector * 2));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2300), playAreaSector * 3));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2400), playAreaSector * 4));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3000), playAreaSector * 3));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3200), playAreaSector * 1));
 
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2600), playAreaSector * 5));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3000), playAreaSector * 6));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3200), playAreaSector * 7));
-
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4000), playAreaSector * 8));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4200), playAreaSector * 9));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4300), playAreaSector * 10));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4400), playAreaSector * 11));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4600), playAreaSector * 12));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5000), playAreaSector * 13));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(6200), playAreaSector * 14));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4000), playAreaSector * 5));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4200), playAreaSector * 7));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4300), playAreaSector * 6));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4400), playAreaSector * 5));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4600), playAreaSector * 6));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5000), playAreaSector * 7));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5200), playAreaSector * 5));
         }
 
         void removeEnemies()
