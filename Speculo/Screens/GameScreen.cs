@@ -60,6 +60,8 @@ namespace Speculo.Screens
         private SoundEffect backSound;
         private Rectangle buttonHoverRectangle;
         private Texture2D hoverTexture;
+        private Texture2D levelPassTexture;
+        
 
         void LoadContent()
         {
@@ -67,11 +69,13 @@ namespace Speculo.Screens
             pausedTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Backgrounds/pausebg");
             buttonTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1");
             hoverTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/buttonOverlay");
+            levelPassTexture = sharedVariables.Content.Load<Texture2D>("Textures/Gameplay/sectionPass");
 
             menuPlaySound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuplay");
             clickSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuclick");
             hoverSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/MenuHit");
             backSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuback");
+            
         }
 
         public void initialize()
@@ -185,8 +189,13 @@ namespace Speculo.Screens
                 enemy.Draw(spriteBatch);
             }
 
+            if (sharedVariables.GamePlay.LevelComplete)
+            {
+                spriteBatch.Draw(levelPassTexture, /*new Vector2(sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2 - levelPassTexture.Width / 2, sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2 - levelPassTexture.Height / 2) */new Rectangle(sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2 - levelPassTexture.Width / 4, sharedVariables.GraphicsManager.PreferredBackBufferHeight/ 2 - levelPassTexture.Height / 4, levelPassTexture.Width / 2, levelPassTexture.Height / 2), Color.White);
+            }
+
             //pause
-            if(paused)
+            if (paused)
             {
                 spriteBatch.Draw(pausedTexture, pausedRectangle, Color.White);
                 foreach (Control control in Controls)
@@ -198,6 +207,7 @@ namespace Speculo.Screens
                     }
                 }
             }
+
             spriteBatch.End();
         }
     }

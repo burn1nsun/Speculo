@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Speculo.CharacterClasses;
 using Speculo.UserControls;
@@ -19,11 +20,16 @@ namespace Speculo.GameplayClasses
         private Rectangle playArea;
 
         public Character CharacterClass { get; set; }
+        public bool LevelComplete { get { return levelComplete; } set { levelComplete = value; } }
 
         public List<Enemy> enemyList;
         public List<Enemy> enemiesToRemove;
 
+        private bool levelComplete;
+
         private float playAreaSector; //1 sector is 5% of playarea
+
+        private SoundEffect levelCompleteSound;
 
         public TimeSpan GameStartTime
         {
@@ -41,6 +47,8 @@ namespace Speculo.GameplayClasses
         public Gameplay()
         {
             //playArea is the area the gameplay is happening, for example the character cannot move out of the play area. Playarea X is 16% of the screen.
+            levelCompleteSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/sectionpass");
+
             initialize();
         }
 
@@ -50,6 +58,8 @@ namespace Speculo.GameplayClasses
 
             enemyList = new List<Enemy>();
             enemiesToRemove = new List<Enemy>();
+
+            levelComplete = false;
 
             gameStartTime = sharedVariables.gameTime.TotalGameTime;
 
@@ -71,8 +81,14 @@ namespace Speculo.GameplayClasses
                 {
                     enemiesToRemove.Add(enemy);
                     removeEnemies();
-                }
+                }  
             }
+
+        }
+
+        public void levelCompleted()
+        {
+            levelComplete = true;
         }
 
         public void addEnemies()
@@ -95,6 +111,14 @@ namespace Speculo.GameplayClasses
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4600), playAreaSector * 6));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5000), playAreaSector * 7));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5200), playAreaSector * 5));
+
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5300), playAreaSector * 6));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5400), playAreaSector * 7));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5450), playAreaSector * 8));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5500), playAreaSector * 9));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5600), playAreaSector * 9));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5700), playAreaSector * 9));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5800), playAreaSector * 9));
         }
 
         void removeEnemies()
@@ -104,6 +128,11 @@ namespace Speculo.GameplayClasses
                 enemyList.Remove(enemy);
             }
             enemiesToRemove.Clear();
+            if (enemyList.Count() == 0)
+            {
+                levelCompleted();
+                levelCompleteSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+            }
         }
 
     }

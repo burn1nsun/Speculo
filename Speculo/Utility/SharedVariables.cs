@@ -68,8 +68,8 @@ namespace Speculo.Utility
                 screenSizes = new List<Vector2>();
                 screenSizes.InsertRange(ScreenSizes.Count, new Vector2[] { new Vector2(800, 600), new Vector2(1024, 768), new Vector2(1280, 960), new Vector2(1366, 768), new Vector2(1600, 900), new Vector2(1680, 1050), new Vector2(1920, 1080)});
 
-                SoundFxVolume = 0.5f;
-                MusicVolume = 0.5f;
+                SoundFxVolume = 0.2f;
+                MusicVolume = 0.2f;
 
                 Hud = new GameplayClasses.HUD();
                 GamePlay = new GameplayClasses.Gameplay();
