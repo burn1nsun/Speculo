@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Speculo.Utility;
 using System;
@@ -29,6 +30,7 @@ namespace Speculo.CharacterClasses
         private bool hasShot;
         private bool enemySent;
         private bool isDead;
+        private SoundEffect dieSound;
 
         public Rectangle EnemyRectangle
         {
@@ -57,6 +59,7 @@ namespace Speculo.CharacterClasses
             {
                 texture = sharedVariables.Content.Load<Texture2D>("Textures/Enemy");
                 ProjectileTexture = sharedVariables.Content.Load<Texture2D>("Textures/Projectiles/Projectile1");
+                dieSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/enemyDie");
             }
             this.approachTime = approachTime;
             this.xPos = xPos;
@@ -138,6 +141,7 @@ namespace Speculo.CharacterClasses
         public void getHit()
         {
             this.isDead = true;
+            dieSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
         }
 
         public void Draw(SpriteBatch spriteBatch)
