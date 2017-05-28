@@ -173,6 +173,7 @@ namespace Speculo.Screens
                     hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
                 }
             }
+            else if (!back.IsMouseOver) { back.HoverSoundPlayed = false; }
 
             if (changeResolution.IsLeftClicked)
             {
