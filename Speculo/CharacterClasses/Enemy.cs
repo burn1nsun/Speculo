@@ -85,7 +85,7 @@ namespace Speculo.CharacterClasses
 
         public void Update(GameTime gameTime)
         {
-            if (sharedVariables.GamePlay.GameRuntime > sharedVariables.GamePlay.GameStartTime + approachTime)
+            if (sharedVariables.GamePlay.GameRuntime  + sharedVariables.GamePlay.GameStartTime > sharedVariables.GamePlay.GameStartTime + approachTime)
             {
                 enemySent = true;
                 sendEnemy();

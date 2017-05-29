@@ -181,8 +181,6 @@ namespace Speculo.Screens
 
         public void pause()
         {
-
-
             paused = true;
             sharedVariables.GamePlay.pause();
         }
@@ -192,8 +190,9 @@ namespace Speculo.Screens
             paused = false;
             sharedVariables.GamePlay.IsPlaying = true;
 
-            sharedVariables.GamePlay.unpause();
-            paused = false;
+            //sharedVariables.GamePlay.GameRuntime = sharedVariables.GamePlay.GameRuntime;
+            //sharedVariables.GamePlay.unpause();
+            //paused = false;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

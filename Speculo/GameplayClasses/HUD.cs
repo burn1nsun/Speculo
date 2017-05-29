@@ -24,6 +24,15 @@ namespace Speculo.GameplayClasses
         private string gameTimeTxt;
         private Vector2 comboTxtPos;
         private string comboTxt;
+
+        private Vector2 pauseTimePos;
+        private string pauseTimeTxt;
+
+        private Vector2 pausedTimePos;
+        private string pausedTimeTxt;
+
+        private Vector2 totalGameTimePos;
+        private string totalGameTimeTxt;
         //private Vector2 levelTxtPos;
         //private string levelTxt;
 
@@ -54,9 +63,18 @@ namespace Speculo.GameplayClasses
         public void Initialize()
         {   
             volumeLevelTxtPos = new Vector2(10, 25);
-            comboTxtPos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 10);
+            comboTxtPos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 15);
             gameTimeTxtPos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 5);
             gameTimeTxt = TimeSpan.Zero.ToString();
+
+            pauseTimePos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 3);
+            pauseTimeTxt = sharedVariables.GamePlay.totalPauseTime.ToString();
+
+            pausedTimePos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 7);
+            pausedTimeTxt = sharedVariables.GamePlay.pauseTime.ToString();
+
+            totalGameTimePos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 9);
+            totalGameTimeTxt = sharedVariables.GamePlay.pauseTime.ToString();
         }
         public void LoadContent(ContentManager Content)
         {
@@ -74,10 +92,14 @@ namespace Speculo.GameplayClasses
                 }
             }
 
+            totalGameTimeTxt = gameTime.TotalGameTime.ToString() + " total gametime";
+
             if(sharedVariables.GamePlay.IsPlaying)
             {
                 comboTxt = sharedVariables.GamePlay.Combo.ToString() + "x";
-                gameTimeTxt = sharedVariables.GamePlay.GameRuntime.ToString();
+                gameTimeTxt = sharedVariables.GamePlay.GameRuntime.ToString() + " ingame time";
+                pausedTimeTxt = sharedVariables.GamePlay.pauseTime.ToString() + " paused at";
+                pauseTimeTxt = sharedVariables.GamePlay.totalPauseTime.ToString() + " total pause time";
             }
         }
 
@@ -89,11 +111,14 @@ namespace Speculo.GameplayClasses
                 {
                     spriteBatch.DrawString(hudFont, volumeLevelTxt, volumeLevelTxtPos, Color.White);
                 }  
-                if(sharedVariables.GamePlay.IsPlaying)
-                {
+                //if(sharedVariables.GamePlay.IsPlaying)
+                //{
                     spriteBatch.DrawString(hudFont, comboTxt, comboTxtPos, Color.White);
                     spriteBatch.DrawString(hudFont, gameTimeTxt, gameTimeTxtPos, Color.White);
-                }
+                    spriteBatch.DrawString(hudFont, pauseTimeTxt, pauseTimePos, Color.White);
+                    spriteBatch.DrawString(hudFont, pausedTimeTxt, pausedTimePos, Color.White);
+                spriteBatch.DrawString(hudFont, totalGameTimeTxt, totalGameTimePos, Color.White);
+                //}
             }
         }
 

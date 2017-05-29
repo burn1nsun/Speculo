@@ -36,6 +36,7 @@ namespace Speculo.GameplayClasses
 
         public TimeSpan totalPauseTime;
         public TimeSpan pauseTime;
+        private bool pausedOnce;
 
         public int Combo
         {
@@ -63,6 +64,8 @@ namespace Speculo.GameplayClasses
             set { this.playArea = value; }
         }
 
+        public bool PausedOnce { get { return pausedOnce; } set { pausedOnce = value; } }
+
         public Gameplay()
         {
             //playArea is the area the gameplay is happening, for example the character cannot move out of the play area. Playarea X is 16% of the screen.
@@ -85,6 +88,7 @@ namespace Speculo.GameplayClasses
             totalPauseTime = TimeSpan.Zero;
             pauseTime = TimeSpan.Zero;
 
+            pausedOnce = false;
 
             addEnemies();
             playArea = new Rectangle(((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
@@ -94,8 +98,8 @@ namespace Speculo.GameplayClasses
         {
             //if(isPlaying)
             //{
-                //gameRuntime += (float)gameTime.TotalGameTime - gameStartTime;
-                gameRuntime = gameTime.TotalGameTime - gameStartTime - totalPauseTime;
+            //gameRuntime += (float)gameTime.TotalGameTime - gameStartTime;
+            gameRuntime = gameTime.TotalGameTime - gameStartTime - totalPauseTime;
 
             //gameRuntime = gameTime.TotalGameTime - gameStartTime;
 
@@ -161,7 +165,16 @@ namespace Speculo.GameplayClasses
         internal void pause()
         {
             IsPlaying = false;
-            pauseTime = sharedVariables.gameTime.TotalGameTime;
+            
+            if (pausedOnce)
+            {
+                pauseTime = sharedVariables.gameTime.TotalGameTime;
+            }
+            else
+            {
+                pauseTime = sharedVariables.gameTime.TotalGameTime;
+                pausedOnce = true;
+            }
         }
 
         void level2()
@@ -192,11 +205,17 @@ namespace Speculo.GameplayClasses
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5800), playAreaSector * 10));
         }
 
-        internal void unpause()
-        {
-            Update(sharedVariables.gameTime);
-            totalPauseTime = TimeSpan.Zero;
-        }
+        //internal void unpause()
+        //{
+        //    //Update(sharedVariables.gameTime);
+        //    //if(pausedOnce)
+        //    //{
+        //    //    totalPauseTime = TimeSpan.Zero;
+        //    //} else
+        //    //{
+        //    //    pausedOnce = true;
+        //    //}
+        //}
 
         public void addCombo()
         {
