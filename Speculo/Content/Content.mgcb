@@ -179,12 +179,6 @@
 /processorParam:TextureFormat=Color
 /build:Textures/Projectiles/Projectile1.png
 
-#begin Sound/Gameplay/enemyDie.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound/Gameplay/enemyDie.wav
-
 #begin Sound/Gameplay/catchBullet.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -232,4 +226,10 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/Gameplay/sectionpass.wav
+
+#begin Sound/Gameplay/enemyDie.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Gameplay/enemyDie.wav
 

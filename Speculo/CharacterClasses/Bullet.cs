@@ -53,7 +53,7 @@ namespace Speculo.CharacterClasses
         {
             bulletPosition += direction * bulletVelocity; 
 
-            if (sharedVariables.gameTime.TotalGameTime > bulletShot + TimeSpan.FromSeconds(3))
+            if (sharedVariables.GamePlay.GameRuntime > bulletShot + TimeSpan.FromSeconds(3))
             {
                 IsProjectileDead = true;
             }

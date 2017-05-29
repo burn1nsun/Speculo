@@ -71,10 +71,10 @@ namespace Speculo.Utility
                 SoundFxVolume = 0.2f;
                 MusicVolume = 0.2f;
 
-                Hud = new GameplayClasses.HUD();
                 GamePlay = new GameplayClasses.Gameplay();
+                Hud = new GameplayClasses.HUD();
 
-                
+
                 called = true;
             }
             

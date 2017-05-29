@@ -20,6 +20,7 @@ namespace Speculo.GameplayClasses
         private Rectangle playArea;
 
         public Character CharacterClass { get; set; }
+        public bool IsPlaying { get { return isPlaying; } set { isPlaying = value; } }
         public bool LevelComplete { get { return levelComplete; } set { levelComplete = value; } }
 
         public List<Enemy> enemyList;
@@ -30,12 +31,30 @@ namespace Speculo.GameplayClasses
         private float playAreaSector; //1 sector is 5% of playarea
 
         private SoundEffect levelCompleteSound;
+        private bool isPlaying;
+        private int combo;
+
+        public TimeSpan totalPauseTime;
+        public TimeSpan pauseTime;
+
+        public int Combo
+        {
+            get { return combo; }
+            set { this.combo = value; }
+        }
 
         public TimeSpan GameStartTime
         {
             get { return gameStartTime;  }
             set { this.gameStartTime = value; }
         }
+
+        public TimeSpan GameRuntime
+        {
+            get { return gameRuntime; }
+            set { this.gameRuntime = value; }
+        }
+
 
         //public PlayArea() { get; set;}
         public Rectangle PlayArea
@@ -59,9 +78,13 @@ namespace Speculo.GameplayClasses
             enemyList = new List<Enemy>();
             enemiesToRemove = new List<Enemy>();
 
+            combo = 0;
             levelComplete = false;
 
             gameStartTime = sharedVariables.gameTime.TotalGameTime;
+            totalPauseTime = TimeSpan.Zero;
+            pauseTime = TimeSpan.Zero;
+
 
             addEnemies();
             playArea = new Rectangle(((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
@@ -69,7 +92,12 @@ namespace Speculo.GameplayClasses
         }
         public void Update(GameTime gameTime)
         {
-            gameRuntime = gameTime.TotalGameTime - gameStartTime;
+            //if(isPlaying)
+            //{
+                //gameRuntime += (float)gameTime.TotalGameTime - gameStartTime;
+                gameRuntime = gameTime.TotalGameTime - gameStartTime - totalPauseTime;
+
+            //gameRuntime = gameTime.TotalGameTime - gameStartTime;
 
             foreach (Enemy enemy in enemyList.ToList()) //tolist because otherwise otherwise Collection was modified; enumeration operation may not execute exception
             {
@@ -83,7 +111,6 @@ namespace Speculo.GameplayClasses
                     removeEnemies();
                 }  
             }
-
         }
 
         public void levelCompleted()
@@ -95,6 +122,16 @@ namespace Speculo.GameplayClasses
         {
             enemyList.Clear();
 
+            level1();
+
+            //if(levelComplete)
+            //{
+            //    level2();
+            //}
+        }
+
+        void level1()
+        {
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2000), playAreaSector * 1));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2200), playAreaSector * 3));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2300), playAreaSector * 2));
@@ -119,6 +156,56 @@ namespace Speculo.GameplayClasses
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5600), playAreaSector * 9));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5700), playAreaSector * 9));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5800), playAreaSector * 9));
+        }
+
+        internal void pause()
+        {
+            IsPlaying = false;
+            pauseTime = sharedVariables.gameTime.TotalGameTime;
+        }
+
+        void level2()
+        {
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2000), playAreaSector * 1));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2200), playAreaSector * 3));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2300), playAreaSector * 2));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2400), playAreaSector * 1));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2600), playAreaSector * 2));
+
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3000), playAreaSector * 3));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3200), playAreaSector * 1));
+
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4000), playAreaSector * 5));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4200), playAreaSector * 7));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4300), playAreaSector * 6));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4400), playAreaSector * 5));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4600), playAreaSector * 6));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5000), playAreaSector * 7));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5200), playAreaSector * 5));
+
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5300), playAreaSector * 3));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5400), playAreaSector * 6));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5450), playAreaSector * 5));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5500), playAreaSector * 3));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5600), playAreaSector * 10));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5700), playAreaSector * 3));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5800), playAreaSector * 10));
+        }
+
+        internal void unpause()
+        {
+            Update(sharedVariables.gameTime);
+            totalPauseTime = TimeSpan.Zero;
+        }
+
+        public void addCombo()
+        {
+            combo++;
+        }
+
+        public void breakCombo()
+        {
+            combo = 0;
         }
 
         void removeEnemies()

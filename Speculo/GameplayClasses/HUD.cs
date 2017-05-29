@@ -13,9 +13,6 @@ namespace Speculo.GameplayClasses
     {
         Utility.SharedVariables sharedVariables = Utility.SharedVariables.Instance;
 
-
-
-
         TimeSpan displayTime;
         TimeSpan lastDisplayed;
 
@@ -23,6 +20,12 @@ namespace Speculo.GameplayClasses
         private string volumeLevelTxt;
         private bool showVolumeLevel;
 
+        private Vector2 gameTimeTxtPos;
+        private string gameTimeTxt;
+        private Vector2 comboTxtPos;
+        private string comboTxt;
+        //private Vector2 levelTxtPos;
+        //private string levelTxt;
 
         public SpriteFont hudFont; 
 
@@ -42,14 +45,18 @@ namespace Speculo.GameplayClasses
             LoadContent(sharedVariables.Content);
             volumeLevelTxt = "SoundFx volume: " + String.Format("{0:0.0}", sharedVariables.SoundFxVolume) + "\r\n" + "Music volume: " + String.Format("{0:0.0}", sharedVariables.MusicVolume);
 
+            comboTxt = "0x";
+            //levelTxt = sharedVariables.GamePlay.Combo.ToString();
+
             Initialize();
         }
 
         public void Initialize()
-        {
-
-            
+        {   
             volumeLevelTxtPos = new Vector2(10, 25);
+            comboTxtPos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 10);
+            gameTimeTxtPos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 5);
+            gameTimeTxt = TimeSpan.Zero.ToString();
         }
         public void LoadContent(ContentManager Content)
         {
@@ -66,6 +73,12 @@ namespace Speculo.GameplayClasses
                     showVolumeLevel = false;
                 }
             }
+
+            if(sharedVariables.GamePlay.IsPlaying)
+            {
+                comboTxt = sharedVariables.GamePlay.Combo.ToString() + "x";
+                gameTimeTxt = sharedVariables.GamePlay.GameRuntime.ToString();
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -76,6 +89,11 @@ namespace Speculo.GameplayClasses
                 {
                     spriteBatch.DrawString(hudFont, volumeLevelTxt, volumeLevelTxtPos, Color.White);
                 }  
+                if(sharedVariables.GamePlay.IsPlaying)
+                {
+                    spriteBatch.DrawString(hudFont, comboTxt, comboTxtPos, Color.White);
+                    spriteBatch.DrawString(hudFont, gameTimeTxt, gameTimeTxtPos, Color.White);
+                }
             }
         }
 

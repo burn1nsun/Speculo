@@ -61,7 +61,6 @@ namespace Speculo.Screens
         private Rectangle buttonHoverRectangle;
         private Texture2D hoverTexture;
         private Texture2D levelPassTexture;
-        
 
         void LoadContent()
         {
@@ -97,7 +96,6 @@ namespace Speculo.Screens
             Controls.Add(btnContinue);
             Controls.Add(btnRetry);
             Controls.Add(btnQuit);
-
         }
 
         public override void Update(GameTime gameTime)
@@ -107,14 +105,16 @@ namespace Speculo.Screens
             {
                 sharedVariables.GamePlay.CharacterClass.Update(gameTime);
                 sharedVariables.GamePlay.Update(gameTime);
+                sharedVariables.GamePlay.IsPlaying = true;
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
-                    paused = true;
+                     pause();
                 }
             }
             else if (paused)
             {
+                sharedVariables.GamePlay.totalPauseTime = gameTime.TotalGameTime - sharedVariables.GamePlay.pauseTime;
 
                 if (btnContinue.IsMouseOver)
                 {
@@ -154,7 +154,7 @@ namespace Speculo.Screens
                 if (btnContinue.IsLeftClicked)
                 {
                     menuPlaySound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
-                    paused = false;
+                    unpause();
                 }
 
                 if (btnRetry.IsLeftClicked)
@@ -170,12 +170,30 @@ namespace Speculo.Screens
                     this.IsActive = false;
                     paused = false;
                     game.MenuScreen.IsActive = true;
+                    sharedVariables.GamePlay.IsPlaying = false;
                 }
                 foreach (Control control in Controls)
                 {
                     control.Update(mouse);
                 }
             }
+        }
+
+        public void pause()
+        {
+
+
+            paused = true;
+            sharedVariables.GamePlay.pause();
+        }
+
+        public void unpause()
+        {
+            paused = false;
+            sharedVariables.GamePlay.IsPlaying = true;
+
+            sharedVariables.GamePlay.unpause();
+            paused = false;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

@@ -85,7 +85,7 @@ namespace Speculo.CharacterClasses
 
         public void Update(GameTime gameTime)
         {
-            if (gameTime.TotalGameTime > sharedVariables.GamePlay.GameStartTime + approachTime)
+            if (sharedVariables.GamePlay.GameRuntime > sharedVariables.GamePlay.GameStartTime + approachTime)
             {
                 enemySent = true;
                 sendEnemy();
@@ -107,6 +107,7 @@ namespace Speculo.CharacterClasses
                 {
                     projectilesToRemove.Add(proj);
                     isDead = true;
+                    sharedVariables.GamePlay.breakCombo();
                     comboBreakSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
                 }
             }
@@ -145,6 +146,7 @@ namespace Speculo.CharacterClasses
         public void getHit()
         {
             this.isDead = true;
+            sharedVariables.GamePlay.addCombo();
             dieSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
         }
 
