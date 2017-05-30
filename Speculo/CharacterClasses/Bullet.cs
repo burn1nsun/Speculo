@@ -31,16 +31,16 @@ namespace Speculo.CharacterClasses
         public bool IsProjectileDead { get; set; }
         //static private Texture2D characterBorder;
 
-        public Bullet(Vector2 bulletStartPos, Texture2D projectileTexture, GraphicsDevice g, Enemy enemy)
+        public Bullet(Vector2 bulletStartPos, TimeSpan bulletShot, Texture2D projectileTexture, GraphicsDevice g, Enemy enemy)
         {
             this.enemy = enemy;
             this.direction = new Vector2(0, 1.5f);
             this.bulletStartPos = bulletStartPos;
             this.bulletTexture = projectileTexture;
             this.bulletPosition = bulletStartPos;
+            this.bulletShot = bulletShot;
             IsProjectileDead = false;
             bounceBackSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/catchBullet");
-            bulletShot = sharedVariables.gameTime.TotalGameTime;
             initialize();
         }
 
@@ -52,6 +52,7 @@ namespace Speculo.CharacterClasses
         public void Update(GameTime gameTime)
         {
             bulletPosition += direction * bulletVelocity; 
+
 
             if (sharedVariables.GamePlay.GameRuntime > bulletShot + TimeSpan.FromSeconds(3))
             {

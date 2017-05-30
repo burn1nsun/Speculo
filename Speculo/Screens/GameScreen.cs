@@ -109,7 +109,7 @@ namespace Speculo.Screens
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
-                     pause();
+                     pause(gameTime);
                 }
             }
             else if (paused)
@@ -179,10 +179,10 @@ namespace Speculo.Screens
             }
         }
 
-        public void pause()
+        public void pause(GameTime gameTime)
         {
             paused = true;
-            sharedVariables.GamePlay.pause();
+            sharedVariables.GamePlay.pause(gameTime);
         }
 
         public void unpause()

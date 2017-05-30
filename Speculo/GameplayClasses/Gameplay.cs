@@ -84,7 +84,7 @@ namespace Speculo.GameplayClasses
             combo = 0;
             levelComplete = false;
 
-            gameStartTime = sharedVariables.gameTime.TotalGameTime;
+
             totalPauseTime = TimeSpan.Zero;
             pauseTime = TimeSpan.Zero;
 
@@ -162,17 +162,17 @@ namespace Speculo.GameplayClasses
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5800), playAreaSector * 9));
         }
 
-        internal void pause()
+        internal void pause(GameTime gameTime)
         {
             IsPlaying = false;
             
             if (pausedOnce)
             {
-                pauseTime = sharedVariables.gameTime.TotalGameTime;
+                pauseTime = gameTime.TotalGameTime;
             }
             else
             {
-                pauseTime = sharedVariables.gameTime.TotalGameTime;
+                pauseTime = gameTime.TotalGameTime;
                 pausedOnce = true;
             }
         }
