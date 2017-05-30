@@ -97,7 +97,7 @@ namespace Speculo.GameplayClasses
             if (sharedVariables.GamePlay.IsPlaying)
             {
                 comboTxt = sharedVariables.GamePlay.Combo.ToString() + "x";
-                gameTimeTxt = String.Format("{0: 0.0}", sharedVariables.GamePlay.GameRuntime.ToString());
+                gameTimeTxt = sharedVariables.GamePlay.GameRuntime.ToString();
                 //pausedTimeTxt = sharedVariables.GamePlay.pauseTime.ToString() + " paused at";
                 //pauseTimeTxt = sharedVariables.GamePlay.totalPauseTime.ToString() + " total pause time";
         }

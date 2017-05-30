@@ -137,29 +137,15 @@ namespace Speculo.GameplayClasses
         void level1()
         {
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2000), playAreaSector * 1));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2200), playAreaSector * 3));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2300), playAreaSector * 2));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2400), playAreaSector * 1));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2600), playAreaSector * 2));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2200), playAreaSector * 10));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2600), playAreaSector * 15));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2800), playAreaSector * 20));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3000), playAreaSector * 10));
 
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3000), playAreaSector * 3));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3200), playAreaSector * 1));
-
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4000), playAreaSector * 5));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4200), playAreaSector * 7));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4300), playAreaSector * 6));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4400), playAreaSector * 5));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4600), playAreaSector * 6));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5000), playAreaSector * 7));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5200), playAreaSector * 5));
-
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5300), playAreaSector * 6));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5400), playAreaSector * 7));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5450), playAreaSector * 8));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5500), playAreaSector * 9));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5600), playAreaSector * 9));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5700), playAreaSector * 9));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5800), playAreaSector * 9));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3300), playAreaSector * 10));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3600), playAreaSector * 14));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3800), playAreaSector * 10));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4200), playAreaSector * 14));
         }
 
         internal void pause(GameTime gameTime)
