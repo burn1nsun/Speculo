@@ -141,7 +141,7 @@ namespace Speculo.CharacterClasses
 
         public void shoot(GameTime gameTime)
         {
-            Bullet projectile = new Bullet(position,gameTime.TotalGameTime,
+            Bullet projectile = new Bullet(position, sharedVariables.GamePlay.GameRuntime,
             ProjectileTexture, sharedVariables.Graphics, this);
             Projectiles.Add(projectile);
         }
