@@ -78,7 +78,7 @@ namespace Speculo.CharacterClasses
 
             position = new Vector2(0, 0);
             enemyRectangle = new Rectangle((int)position.X, (int)position.Y, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 20, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 25);
-            position = new Vector2(xPos, yPos);
+            position = new Vector2(xPos - enemyRectangle.Width, yPos);
 
             yAmount = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2;
 
