@@ -94,14 +94,14 @@ namespace Speculo.GameplayClasses
 
             totalGameTimeTxt = gameTime.TotalGameTime.ToString() + " total gametime";
 
-            //if(sharedVariables.GamePlay.IsPlaying)
-            //{
+            if (sharedVariables.GamePlay.IsPlaying)
+            {
                 comboTxt = sharedVariables.GamePlay.Combo.ToString() + "x";
-                gameTimeTxt = sharedVariables.GamePlay.GameRuntime.ToString() + " ingame time";
-                pausedTimeTxt = sharedVariables.GamePlay.pauseTime.ToString() + " paused at";
-                pauseTimeTxt = sharedVariables.GamePlay.totalPauseTime.ToString() + " total pause time";
-            //}
+                gameTimeTxt = String.Format("{0: 0.0}", sharedVariables.GamePlay.GameRuntime.ToString());
+                //pausedTimeTxt = sharedVariables.GamePlay.pauseTime.ToString() + " paused at";
+                //pauseTimeTxt = sharedVariables.GamePlay.totalPauseTime.ToString() + " total pause time";
         }
+    }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -110,16 +110,16 @@ namespace Speculo.GameplayClasses
                 if(showVolumeLevel)
                 {
                     spriteBatch.DrawString(hudFont, volumeLevelTxt, volumeLevelTxtPos, Color.White);
-                }  
-                //if(sharedVariables.GamePlay.IsPlaying)
-                //{
+                }
+                if (sharedVariables.GamePlay.IsPlaying)
+                {
                     spriteBatch.DrawString(hudFont, comboTxt, comboTxtPos, Color.White);
-                    spriteBatch.DrawString(hudFont, gameTimeTxt, gameTimeTxtPos, Color.White);
-                    spriteBatch.DrawString(hudFont, pauseTimeTxt, pauseTimePos, Color.White);
-                    spriteBatch.DrawString(hudFont, pausedTimeTxt, pausedTimePos, Color.White);
-                spriteBatch.DrawString(hudFont, totalGameTimeTxt, totalGameTimePos, Color.White);
-                //}
+                    //spriteBatch.DrawString(hudFont, gameTimeTxt, gameTimeTxtPos, Color.White);
+                    //spriteBatch.DrawString(hudFont, pauseTimeTxt, pauseTimePos, Color.White);
+                    //spriteBatch.DrawString(hudFont, pausedTimeTxt, pausedTimePos, Color.White);
+                    spriteBatch.DrawString(hudFont, totalGameTimeTxt, totalGameTimePos, Color.White);
             }
+        }
         }
 
         public void volumeLevelChanged(GameTime gameTime)
