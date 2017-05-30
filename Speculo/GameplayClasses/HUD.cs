@@ -92,12 +92,12 @@ namespace Speculo.GameplayClasses
                 }
             }
 
-            totalGameTimeTxt = gameTime.TotalGameTime.ToString() + " total gametime";
+            totalGameTimeTxt = String.Format("{0:mm\\:ss}", sharedVariables.GamePlay.GameRuntime);
 
             if (sharedVariables.GamePlay.IsPlaying)
             {
                 comboTxt = sharedVariables.GamePlay.Combo.ToString() + "x";
-                gameTimeTxt = String.Format("{0: 0.0}", sharedVariables.GamePlay.GameRuntime.ToString());
+                gameTimeTxt = String.Format("{0}:{1}", sharedVariables.GamePlay.GameRuntime.TotalMinutes, Math.Truncate(sharedVariables.GamePlay.GameRuntime.TotalSeconds));
                 //pausedTimeTxt = sharedVariables.GamePlay.pauseTime.ToString() + " paused at";
                 //pauseTimeTxt = sharedVariables.GamePlay.totalPauseTime.ToString() + " total pause time";
         }
