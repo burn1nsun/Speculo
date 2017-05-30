@@ -114,7 +114,7 @@ namespace Speculo.Screens
             }
             else if (paused)
             {
-                sharedVariables.GamePlay.totalPauseTime = gameTime.TotalGameTime - sharedVariables.GamePlay.pauseTime;
+                sharedVariables.GamePlay.totalPauseTime = gameTime.TotalGameTime - sharedVariables.GamePlay.pauseTime + sharedVariables.GamePlay.lastPauseTime;
 
                 if (btnContinue.IsMouseOver)
                 {
@@ -154,14 +154,14 @@ namespace Speculo.Screens
                 if (btnContinue.IsLeftClicked)
                 {
                     menuPlaySound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
-                    unpause();
+                    unpause(gameTime);
                 }
 
                 if (btnRetry.IsLeftClicked)
                 {
                     clickSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
                     paused = false;
-                    sharedVariables.GamePlay.initialize();
+                    sharedVariables.GamePlay.initialize(gameTime);
                 }
 
                 if (btnQuit.IsLeftClicked)
@@ -185,14 +185,10 @@ namespace Speculo.Screens
             sharedVariables.GamePlay.pause(gameTime);
         }
 
-        public void unpause()
+        public void unpause(GameTime gameTime)
         {
             paused = false;
-            sharedVariables.GamePlay.IsPlaying = true;
-
-            //sharedVariables.GamePlay.GameRuntime = sharedVariables.GamePlay.GameRuntime;
-            //sharedVariables.GamePlay.unpause();
-            //paused = false;
+            sharedVariables.GamePlay.unpause(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

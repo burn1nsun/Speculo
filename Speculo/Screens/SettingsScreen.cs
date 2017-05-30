@@ -86,7 +86,7 @@ namespace Speculo.Screens
 
         }
 
-        public void adjustToResolution()
+        public void adjustToResolution(GameTime gameTime)
         {
             bool wasFullScreen = sharedVariables.GraphicsManager.IsFullScreen;
             if(wasFullScreen)
@@ -99,7 +99,7 @@ namespace Speculo.Screens
             initializeButtons(game);
             sharedVariables.Hud.Initialize();
             game.MenuScreen.initializeButtons(game);
-            sharedVariables.GamePlay.initialize();
+            sharedVariables.GamePlay.initialize(gameTime);
             sharedVariables.GamePlay.CharacterClass.initialize();
             game.GameScreen.initialize();
             game.Window.Position = new Point(0, 0);
@@ -183,7 +183,7 @@ namespace Speculo.Screens
                 {
                     sharedVariables.ScreenSizeIndex = 0;
                 }
-                adjustToResolution();
+                adjustToResolution(gameTime);
             }
 
             if (fullScreenToggle.IsLeftClicked)

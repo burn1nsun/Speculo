@@ -36,7 +36,7 @@ namespace Speculo.GameplayClasses
 
         public TimeSpan totalPauseTime;
         public TimeSpan pauseTime;
-        private bool pausedOnce;
+        public TimeSpan lastPauseTime;
 
         public int Combo
         {
@@ -64,17 +64,28 @@ namespace Speculo.GameplayClasses
             set { this.playArea = value; }
         }
 
-        public bool PausedOnce { get { return pausedOnce; } set { pausedOnce = value; } }
 
         public Gameplay()
         {
             //playArea is the area the gameplay is happening, for example the character cannot move out of the play area. Playarea X is 16% of the screen.
             levelCompleteSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/sectionpass");
 
-            initialize();
+
+            //initialize();
+            CharacterClass = new Character();
+            enemyList = new List<Enemy>();
+            enemiesToRemove = new List<Enemy>();
+            combo = 0;
+            levelComplete = false;
+            totalPauseTime = TimeSpan.Zero;
+            pauseTime = TimeSpan.Zero;
+            gameRuntime = TimeSpan.Zero;
+            addEnemies();
+            playArea = new Rectangle(((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
+            playAreaSector = playArea.Width / 100 * 5;
         }
 
-        public void initialize()
+        public void initialize(GameTime gameTime)
         {
             CharacterClass = new Character();
 
@@ -84,11 +95,11 @@ namespace Speculo.GameplayClasses
             combo = 0;
             levelComplete = false;
 
-
             totalPauseTime = TimeSpan.Zero;
             pauseTime = TimeSpan.Zero;
-
-            pausedOnce = false;
+            gameRuntime = TimeSpan.Zero;
+            lastPauseTime = TimeSpan.Zero;
+            GameStartTime = gameTime.TotalGameTime;
 
             addEnemies();
             playArea = new Rectangle(((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
@@ -96,12 +107,7 @@ namespace Speculo.GameplayClasses
         }
         public void Update(GameTime gameTime)
         {
-            //if(isPlaying)
-            //{
-            //gameRuntime += (float)gameTime.TotalGameTime - gameStartTime;
             gameRuntime = gameTime.TotalGameTime - gameStartTime - totalPauseTime;
-
-            //gameRuntime = gameTime.TotalGameTime - gameStartTime;
 
             foreach (Enemy enemy in enemyList.ToList()) //tolist because otherwise otherwise Collection was modified; enumeration operation may not execute exception
             {
@@ -159,16 +165,8 @@ namespace Speculo.GameplayClasses
         internal void pause(GameTime gameTime)
         {
             IsPlaying = false;
-            
-            if (pausedOnce)
-            {
-                pauseTime = gameTime.TotalGameTime;
-            }
-            else
-            {
-                pauseTime = gameTime.TotalGameTime;
-                pausedOnce = true;
-            }
+
+            pauseTime = gameTime.TotalGameTime;
         }
 
         void level2()
@@ -199,17 +197,11 @@ namespace Speculo.GameplayClasses
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5800), playAreaSector * 10));
         }
 
-        //internal void unpause()
-        //{
-        //    //Update(sharedVariables.gameTime);
-        //    //if(pausedOnce)
-        //    //{
-        //    //    totalPauseTime = TimeSpan.Zero;
-        //    //} else
-        //    //{
-        //    //    pausedOnce = true;
-        //    //}
-        //}
+        internal void unpause(GameTime gameTime)
+        {
+            lastPauseTime = totalPauseTime;
+            IsPlaying = true;
+        }
 
         public void addCombo()
         {

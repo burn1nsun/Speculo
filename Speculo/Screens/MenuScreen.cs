@@ -113,7 +113,7 @@ namespace Speculo.Screens
 
             if (btnPlay.IsLeftClicked)
             {
-                sharedVariables.GamePlay.initialize();
+                sharedVariables.GamePlay.initialize(gameTime);
                 this.IsActive = false;
                 game.GameScreen.IsActive = true;
                 menuPlaySound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
