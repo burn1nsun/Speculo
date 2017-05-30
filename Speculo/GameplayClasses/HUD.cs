@@ -94,13 +94,13 @@ namespace Speculo.GameplayClasses
 
             totalGameTimeTxt = gameTime.TotalGameTime.ToString() + " total gametime";
 
-            if(sharedVariables.GamePlay.IsPlaying)
-            {
+            //if(sharedVariables.GamePlay.IsPlaying)
+            //{
                 comboTxt = sharedVariables.GamePlay.Combo.ToString() + "x";
                 gameTimeTxt = sharedVariables.GamePlay.GameRuntime.ToString() + " ingame time";
                 pausedTimeTxt = sharedVariables.GamePlay.pauseTime.ToString() + " paused at";
                 pauseTimeTxt = sharedVariables.GamePlay.totalPauseTime.ToString() + " total pause time";
-            }
+            //}
         }
 
         public void Draw(SpriteBatch spriteBatch)
