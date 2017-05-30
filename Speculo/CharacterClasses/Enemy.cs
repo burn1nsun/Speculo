@@ -12,8 +12,8 @@ namespace Speculo.CharacterClasses
 {
     public class Enemy
     {
-        public List<Bullet> Projectiles = new List<Bullet>();
-        List<Bullet> projectilesToRemove = new List<Bullet>();
+        public List<Bullet> Projectiles;
+        List<Bullet> projectilesToRemove;
 
 
         private Texture2D texture;
@@ -81,6 +81,9 @@ namespace Speculo.CharacterClasses
             position = new Vector2(xPos, yPos);
 
             yAmount = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2;
+
+            Projectiles = new List<Bullet>();
+            projectilesToRemove = new List<Bullet>();
         }
 
         public void Update(GameTime gameTime)
