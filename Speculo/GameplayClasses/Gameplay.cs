@@ -105,6 +105,7 @@ namespace Speculo.GameplayClasses
             playArea = new Rectangle(((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
             playAreaSector = playArea.Width / 100 * 5;
         }
+
         public void Update(GameTime gameTime)
         {
             gameRuntime = gameTime.TotalGameTime - gameStartTime - totalPauseTime;
