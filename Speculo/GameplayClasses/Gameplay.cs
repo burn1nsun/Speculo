@@ -85,7 +85,7 @@ namespace Speculo.GameplayClasses
             levelComplete = false;
 
             gameStartTime = sharedVariables.gameTime.TotalGameTime;
-            //totalPauseTime = TimeSpan.Zero;
+            totalPauseTime = TimeSpan.Zero;
             pauseTime = TimeSpan.Zero;
 
             pausedOnce = false;
