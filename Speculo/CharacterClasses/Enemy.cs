@@ -149,7 +149,8 @@ namespace Speculo.CharacterClasses
         public void getHit()
         {
             this.isDead = true;
-            sharedVariables.GamePlay.addCombo();
+            
+            sharedVariables.GamePlay.killedEnemy();
             dieSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
         }
 

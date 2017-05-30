@@ -26,12 +26,15 @@ namespace Speculo.GameplayClasses
         public List<Enemy> enemyList;
         public List<Enemy> enemiesToRemove;
 
+        private int score;
+
         private bool levelComplete;
 
         private float playAreaSector; //1 sector is 5% of playarea
 
         private SoundEffect levelCompleteSound;
         private bool isPlaying;
+        private int currentLevel;
         private int combo;
 
         public TimeSpan totalPauseTime;
@@ -42,6 +45,12 @@ namespace Speculo.GameplayClasses
         {
             get { return combo; }
             set { this.combo = value; }
+        }
+
+        public int Score
+        {
+            get { return score; }
+            set { this.score = value; }
         }
 
         public TimeSpan GameStartTime
@@ -64,6 +73,7 @@ namespace Speculo.GameplayClasses
             set { this.playArea = value; }
         }
 
+        public int CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
 
         public Gameplay()
         {
@@ -93,6 +103,7 @@ namespace Speculo.GameplayClasses
             enemiesToRemove = new List<Enemy>();
 
             combo = 0;
+            score = 0;
             levelComplete = false;
 
             totalPauseTime = TimeSpan.Zero;
@@ -100,6 +111,7 @@ namespace Speculo.GameplayClasses
             gameRuntime = TimeSpan.Zero;
             lastPauseTime = TimeSpan.Zero;
             GameStartTime = gameTime.TotalGameTime;
+            currentLevel = 1;
 
             addEnemies();
             playArea = new Rectangle(((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
@@ -123,6 +135,25 @@ namespace Speculo.GameplayClasses
             }
         }
 
+        internal void killedEnemy()
+        {
+            addCombo();
+            addScore();
+        }
+
+        private void addScore()
+        {
+            if(combo > 0)
+            {
+                score += combo * 100;
+            }
+            else
+            {
+                combo += 100;
+            }
+            
+        }
+
         public void levelCompleted()
         {
             levelComplete = true;
@@ -136,6 +167,8 @@ namespace Speculo.GameplayClasses
 
         void level1()
         {
+            currentLevel = 1;
+
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2000), playAreaSector * 1));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2200), playAreaSector * 10));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2600), playAreaSector * 15));
@@ -146,6 +179,20 @@ namespace Speculo.GameplayClasses
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3600), playAreaSector * 14));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3800), playAreaSector * 10));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(4200), playAreaSector * 14));
+
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5200), playAreaSector * 1));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5400), playAreaSector * 4));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5450), playAreaSector * 4));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5500), playAreaSector * 4));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5550), playAreaSector * 4));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5600), playAreaSector * 4));
+
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5700), playAreaSector * 4));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5900), playAreaSector * 6));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5950), playAreaSector * 6));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(6000), playAreaSector * 6));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(6050), playAreaSector * 6));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(6100), playAreaSector * 6));
         }
 
         internal void pause(GameTime gameTime)
