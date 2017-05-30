@@ -85,7 +85,7 @@ namespace Speculo.GameplayClasses
             levelComplete = false;
 
             gameStartTime = sharedVariables.gameTime.TotalGameTime;
-            totalPauseTime = TimeSpan.Zero;
+            //totalPauseTime = TimeSpan.Zero;
             pauseTime = TimeSpan.Zero;
 
             pausedOnce = false;
@@ -125,13 +125,7 @@ namespace Speculo.GameplayClasses
         public void addEnemies()
         {
             enemyList.Clear();
-
             level1();
-
-            //if(levelComplete)
-            //{
-            //    level2();
-            //}
         }
 
         void level1()
