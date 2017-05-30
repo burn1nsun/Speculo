@@ -88,7 +88,7 @@ namespace Speculo.CharacterClasses
             if (sharedVariables.GamePlay.GameRuntime  + sharedVariables.GamePlay.GameStartTime > sharedVariables.GamePlay.GameStartTime + approachTime)
             {
                 enemySent = true;
-                sendEnemy();
+                sendEnemy(gameTime);
             }
 
             updateProjectileTravel(gameTime);
@@ -122,7 +122,7 @@ namespace Speculo.CharacterClasses
             projectilesToRemove.Clear();
         }
 
-        public void sendEnemy()
+        public void sendEnemy(GameTime gameTime)
         {
             if(!hasShot)
             {
@@ -131,14 +131,14 @@ namespace Speculo.CharacterClasses
                 if (yPos >= yAmount)
                 {
                     hasShot = true;
-                    shoot();
+                    shoot(gameTime);
                 }
             }
         }
 
-        public void shoot()
+        public void shoot(GameTime gameTime)
         {
-            Bullet projectile = new Bullet(position,
+            Bullet projectile = new Bullet(position,gameTime.TotalGameTime,
             ProjectileTexture, sharedVariables.Graphics, this);
             Projectiles.Add(projectile);
         }
