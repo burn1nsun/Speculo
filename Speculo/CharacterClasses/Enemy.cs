@@ -77,7 +77,17 @@ namespace Speculo.CharacterClasses
             hasShot = false;
 
             position = new Vector2(0, 0);
-            enemyRectangle = new Rectangle((int)position.X, (int)position.Y, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 20, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 25);
+            enemyRectangle = new Rectangle((int)position.X, (int)position.Y,
+                (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 20,
+                (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 25);
+
+            //enemyRectangle = new Rectangle(
+            //    (int)position.X,
+            //    (int)position.Y,
+            //    ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32) / 12,
+            //    (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 20
+            //    );
+
             position = new Vector2(xPos - enemyRectangle.Width, yPos);
 
             yAmount = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2;

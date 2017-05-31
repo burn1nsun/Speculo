@@ -40,6 +40,13 @@ namespace Speculo.GameplayClasses
         public TimeSpan totalPauseTime;
         public TimeSpan pauseTime;
         public TimeSpan lastPauseTime;
+        public static Texture2D playAreaBorder;
+
+        public Texture2D PlayAreaBorder
+        {
+            get { return playAreaBorder; }
+            set { playAreaBorder = value; }
+        }
 
         public int Combo
         {
@@ -82,21 +89,17 @@ namespace Speculo.GameplayClasses
 
 
             //initialize();
-            CharacterClass = new Character();
-            enemyList = new List<Enemy>();
-            enemiesToRemove = new List<Enemy>();
-            combo = 0;
-            levelComplete = false;
-            totalPauseTime = TimeSpan.Zero;
-            pauseTime = TimeSpan.Zero;
-            gameRuntime = TimeSpan.Zero;
-            addEnemies();
-            playArea = new Rectangle(((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
+            playArea = new Rectangle(
+                ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16,
+                0,
+                (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32,
+                (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y
+                );
             playAreaSector = playArea.Width / 100 * 5;
-        }
 
-        public void initialize(GameTime gameTime)
-        {
+            playAreaBorder = new Texture2D(sharedVariables.Graphics, playArea.Width, playArea.Height);
+            playAreaBorder.CreateBorder(1, Color.Red);
+
             CharacterClass = new Character();
 
             enemyList = new List<Enemy>();
@@ -105,17 +108,44 @@ namespace Speculo.GameplayClasses
             combo = 0;
             score = 0;
             levelComplete = false;
+            currentLevel = 1;
+
+            totalPauseTime = TimeSpan.Zero;
+            pauseTime = TimeSpan.Zero;
+            gameRuntime = TimeSpan.Zero;
+            lastPauseTime = TimeSpan.Zero;
+
+
+            addEnemies();
+
+        }
+
+        public void initialize(GameTime gameTime)
+        {
+            playArea = new Rectangle(((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
+            playAreaSector = playArea.Width / 100 * 5;
+
+            playAreaBorder = new Texture2D(sharedVariables.Graphics, playArea.Width, playArea.Height);
+            playAreaBorder.CreateBorder(1, Color.Red);
+
+            CharacterClass = new Character();
+
+            enemyList = new List<Enemy>();
+            enemiesToRemove = new List<Enemy>();
+
+            combo = 0;
+            score = 0;
+            levelComplete = false;
+            currentLevel = 1;
 
             totalPauseTime = TimeSpan.Zero;
             pauseTime = TimeSpan.Zero;
             gameRuntime = TimeSpan.Zero;
             lastPauseTime = TimeSpan.Zero;
             GameStartTime = gameTime.TotalGameTime;
-            currentLevel = 1;
-
+            
             addEnemies();
-            playArea = new Rectangle(((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16, 0, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
-            playAreaSector = playArea.Width / 100 * 5;
+
         }
         public void Update(GameTime gameTime)
         {
@@ -187,12 +217,12 @@ namespace Speculo.GameplayClasses
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5550), playAreaSector * 4));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5600), playAreaSector * 4));
 
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5700), playAreaSector * 4));
+
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5750), playAreaSector * 6));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5800), playAreaSector * 6));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5850), playAreaSector * 6));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5900), playAreaSector * 6));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(5950), playAreaSector * 6));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(6000), playAreaSector * 6));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(6050), playAreaSector * 6));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(6100), playAreaSector * 6));
         }
 
         internal void pause(GameTime gameTime)
@@ -260,5 +290,35 @@ namespace Speculo.GameplayClasses
             }
         }
 
+    }
+    static class Utilities
+    {
+        public static void CreateBorder(this Texture2D texture, int borderWidth, Color borderColor)
+        {
+
+            Color[] colors = new Color[texture.Width * texture.Height];
+
+            for (int x = 0; x < texture.Width; x++)
+            {
+                for (int y = 0; y < texture.Height; y++)
+                {
+                    bool colored = false;
+                    for (int i = 0; i <= borderWidth; i++)
+                    {
+                        if (x == i || y == i || x == texture.Width - 1 - i || y == texture.Height - 1 - i)
+                        {
+                            colors[x + y * texture.Width] = borderColor;
+                            colored = true;
+                            break;
+                        }
+                    }
+
+                    if (colored == false)
+                        colors[x + y * texture.Width] = Color.Transparent;
+                }
+            }
+
+            texture.SetData(colors);
+        }
     }
 }

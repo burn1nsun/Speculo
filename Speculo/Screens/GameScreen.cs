@@ -196,8 +196,9 @@ namespace Speculo.Screens
             spriteBatch.Begin();
             spriteBatch.Draw(boundsTexture, boundsRectangle, Color.White);
             sharedVariables.GamePlay.CharacterClass.Draw(spriteBatch);
+            spriteBatch.Draw(sharedVariables.GamePlay.PlayAreaBorder, new Vector2(sharedVariables.GamePlay.PlayArea.X, sharedVariables.GamePlay.PlayArea.Y), Color.Red);
 
-            foreach(Enemy enemy in sharedVariables.GamePlay.enemyList)
+            foreach (Enemy enemy in sharedVariables.GamePlay.enemyList)
             {
                 enemy.Draw(spriteBatch);
             }
