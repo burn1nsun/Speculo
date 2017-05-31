@@ -88,7 +88,7 @@ namespace Speculo.CharacterClasses
             //    (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 20
             //    );
 
-            position = new Vector2(xPos - enemyRectangle.Width, yPos);
+            position = new Vector2(xPos, yPos);
 
             yAmount = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2;
 

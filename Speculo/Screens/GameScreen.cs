@@ -205,7 +205,9 @@ namespace Speculo.Screens
 
             if (sharedVariables.GamePlay.LevelComplete)
             {
-                spriteBatch.Draw(levelPassTexture, /*new Vector2(sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2 - levelPassTexture.Width / 2, sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2 - levelPassTexture.Height / 2) */new Rectangle(sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2 - levelPassTexture.Width / 4, sharedVariables.GraphicsManager.PreferredBackBufferHeight/ 2 - levelPassTexture.Height / 4, levelPassTexture.Width / 2, levelPassTexture.Height / 2), Color.White);
+                spriteBatch.Draw(levelPassTexture,
+                    /*new Vector2(sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2 - levelPassTexture.Width / 2, sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2 - levelPassTexture.Height / 2) */
+                    new Rectangle(sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2 - levelPassTexture.Width / 4, sharedVariables.GraphicsManager.PreferredBackBufferHeight/ 2 - levelPassTexture.Height / 4, levelPassTexture.Width / 2, levelPassTexture.Height / 2), Color.White);
             }
 
             //pause

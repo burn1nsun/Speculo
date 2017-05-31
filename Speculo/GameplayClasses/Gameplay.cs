@@ -202,7 +202,7 @@ namespace Speculo.GameplayClasses
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2000), playAreaSector * 1));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2200), playAreaSector * 10));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2600), playAreaSector * 15));
-            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2800), playAreaSector * 20));
+            enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(2800), playAreaSector * 18));
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3000), playAreaSector * 10));
 
             enemyList.Add(new Enemy(TimeSpan.FromMilliseconds(3300), playAreaSector * 10));
