@@ -33,6 +33,9 @@ namespace Speculo.CharacterClasses
         private SoundEffect dieSound;
         private SoundEffect comboBreakSound;
 
+        private Vector2 direction;
+        private float velocity;
+
         public Rectangle EnemyRectangle
         {
             get { return enemyRectangle; }
@@ -86,6 +89,11 @@ namespace Speculo.CharacterClasses
             enemyRectangle = new Rectangle((int)position.X, (int)position.Y,
                 (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 20,
                 (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 25);
+
+             direction = new Vector2(0, 1.2f);
+
+            //450 = 900/2; 2 = default velocity
+            velocity = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 450;
 
             //enemyRectangle = new Rectangle(
             //    (int)position.X,
@@ -145,9 +153,10 @@ namespace Speculo.CharacterClasses
         {
             if(!hasShot)
             {
-                position = new Vector2(sharedVariables.GamePlay.PlayArea.X + xPos, yPos);
-                yPos += 2;
-                if (yPos >= yAmount)
+                position.X = sharedVariables.GamePlay.PlayArea.X + xPos;
+                position += direction * velocity;
+
+                if (position.Y >= yAmount)
                 {
                     hasShot = true;
                     shoot(gameTime);
