@@ -58,7 +58,7 @@ namespace Speculo.CharacterClasses
             //if (sharedVariables.GamePlay.GameRuntime > bulletShot + TimeSpan.FromSeconds(2))
             //{
             //    IsProjectileDead = true;
-            //}
+            //} 
             bulletCollision();
             hitBottom();
         }
