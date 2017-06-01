@@ -119,62 +119,9 @@ namespace Speculo.Screens
                 control.Update(presentMouse);
             }
 
-            if (changeResolution.IsMouseOver)
-            {
-                buttonHoverRectangle = new Rectangle(changeResolution.Rectangle.X, changeResolution.Rectangle.Y, changeResolution.Rectangle.Width, changeResolution.Rectangle.Height);
-                if (!changeResolution.HoverSoundPlayed && changeResolution.IsMouseOver)
-                {
-                    changeResolution.HoverSoundPlayed = true;
-                    hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
-                }
-            }
-            else if (!changeResolution.IsMouseOver) { changeResolution.HoverSoundPlayed = false; }
-
-            if (fullScreenToggle.IsMouseOver)
-            {
-                buttonHoverRectangle = new Rectangle(fullScreenToggle.Rectangle.X, fullScreenToggle.Rectangle.Y, fullScreenToggle.Rectangle.Width, fullScreenToggle.Rectangle.Height);
-                if (!fullScreenToggle.HoverSoundPlayed && fullScreenToggle.IsMouseOver)
-                {
-                    fullScreenToggle.HoverSoundPlayed = true;
-                    hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
-                }
-            }
-            else if (!fullScreenToggle.IsMouseOver) { fullScreenToggle.HoverSoundPlayed = false; }
+            onButtonHover();
 
 
-            if (incrementVolume.IsMouseOver)
-            {
-                buttonHoverRectangle = new Rectangle(incrementVolume.Rectangle.X, incrementVolume.Rectangle.Y, incrementVolume.Rectangle.Width, incrementVolume.Rectangle.Height);
-                if (!incrementVolume.HoverSoundPlayed && incrementVolume.IsMouseOver)
-                {
-                    incrementVolume.HoverSoundPlayed = true;
-                    hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
-                }
-            }
-            else if (!incrementVolume.IsMouseOver) { incrementVolume.HoverSoundPlayed = false; }
-
-            if (decreaseVolume.IsMouseOver)
-            {
-                buttonHoverRectangle = new Rectangle(decreaseVolume.Rectangle.X, decreaseVolume.Rectangle.Y, decreaseVolume.Rectangle.Width, decreaseVolume.Rectangle.Height);
-                if (!decreaseVolume.HoverSoundPlayed && decreaseVolume.IsMouseOver)
-                {
-                    decreaseVolume.HoverSoundPlayed = true;
-                    hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
-                }
-            }
-            else if (!decreaseVolume.IsMouseOver) { decreaseVolume.HoverSoundPlayed = false; }
-
-            if (back.IsMouseOver)
-            {
-                buttonHoverRectangle = new Rectangle(back.Rectangle.X, back.Rectangle.Y, back.Rectangle.Width, back.Rectangle.Height);
-                if (!back.HoverSoundPlayed && back.IsMouseOver)
-                {
-                    back.HoverSoundPlayed = true;
-                    hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
-                }
-            }
-            else if (!back.IsMouseOver) { back.HoverSoundPlayed = false; }
-            
             if (changeResolution.IsLeftClicked)
             {
                 clickSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
@@ -214,7 +161,25 @@ namespace Speculo.Screens
                 game.MenuScreen.IsActive = true;
             }
         }
-
+        private void onButtonHover()
+        {
+            foreach(Control btn in Controls)
+            {
+                if (btn.IsMouseOver)
+                {
+                    buttonHoverRectangle = new Rectangle(btn.Rectangle.X, btn.Rectangle.Y, btn.Rectangle.Width, btn.Rectangle.Height);
+                    if (!btn.HoverSoundPlayed && btn.IsMouseOver)
+                    {
+                        btn.HoverSoundPlayed = true;
+                        hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+                    }
+                }
+                else
+                {
+                    btn.HoverSoundPlayed = false;
+                }
+            }
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
