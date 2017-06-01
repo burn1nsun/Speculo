@@ -94,15 +94,16 @@ namespace Speculo.Screens
                 game.ToggleFullScreen();
             }
             game.UpdateScreenResolution((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y);
+            
             changeResolution.Text = sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X + " x " + sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y;
 
             initializeButtons(game);
             sharedVariables.GamePlay.initialize(gameTime);
             sharedVariables.GamePlay.CharacterClass.initialize();
-            sharedVariables.Hud.Initialize();
             game.MenuScreen.initializeButtons(game);
             game.GameScreen.initialize();
-            game.Window.Position = new Point(0, 0);
+            //game.Window.Position = new Point(10, 10);
+            sharedVariables.Hud.Initialize();
 
             if (wasFullScreen)
             {

@@ -89,12 +89,18 @@ namespace Speculo.GameplayClasses
             healthTxtPos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 15);
             healthTxt = "Health: " + sharedVariables.GamePlay.Health.ToString();
 
+
             healthRectangle = new Rectangle(sharedVariables.GamePlay.PlayArea.X + 10,
-                sharedVariables.GamePlay.PlayArea.Height - (sharedVariables.GamePlay.PlayArea.Height / 100) * 98,
-                (int)sharedVariables.GamePlay.Health, 5);
+            (int)(sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 98),
+            (int)sharedVariables.GamePlay.Health, 5);
+
 
             healthTexture = new Texture2D(sharedVariables.Graphics, 1, 1);
             healthTexture.SetData(new Color[] { new Color(0, 255, 0) });
+            //if(sharedVariables.Hud != null)
+            //{
+            //    sharedVariables.Hud.Initialize();
+            //}
         }
         public void LoadContent(ContentManager Content)
         {

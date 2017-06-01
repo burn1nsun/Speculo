@@ -65,7 +65,7 @@ namespace Speculo.CharacterClasses
             if (texture == null)
             {
                 texture = sharedVariables.Content.Load<Texture2D>("Textures/Enemy");
-                ProjectileTexture = sharedVariables.Content.Load<Texture2D>("Textures/Projectiles/Projectile1");
+                ProjectileTexture = sharedVariables.Content.Load<Texture2D>("Textures/Gameplay/Projectiles/projectile3");
                 dieSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/enemyDie");
                 comboBreakSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/combobreak");
             }
@@ -157,7 +157,7 @@ namespace Speculo.CharacterClasses
 
         public void shoot(GameTime gameTime)
         {
-            Bullet projectile = new Bullet(position, sharedVariables.GamePlay.GameRuntime,
+            Bullet projectile = new Bullet(new Vector2(position.X + enemyRectangle.Width / 2, position.Y), sharedVariables.GamePlay.GameRuntime,
             ProjectileTexture, sharedVariables.Graphics, this);
             Projectiles.Add(projectile);
         }

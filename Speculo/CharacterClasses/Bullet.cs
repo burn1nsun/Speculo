@@ -37,7 +37,7 @@ namespace Speculo.CharacterClasses
             this.direction = new Vector2(0, 1.5f);
             this.bulletStartPos = bulletStartPos;
             this.bulletTexture = projectileTexture;
-            this.bulletPosition = bulletStartPos;
+            this.bulletPosition = new Vector2(bulletStartPos.X - projectileTexture.Width / 2, bulletStartPos.Y);
             this.bulletShot = bulletShot;
             IsProjectileDead = false;
             bounceBackSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/catchBullet");
@@ -46,7 +46,7 @@ namespace Speculo.CharacterClasses
 
         public void initialize()
         {
-            BulletRectangle = new Rectangle(0, 0, (int)((sharedVariables.GraphicsManager.PreferredBackBufferWidth / 16) / 1.5), (int)((sharedVariables.GraphicsManager.PreferredBackBufferHeight / 9) / 1.5 ));
+            BulletRectangle = new Rectangle(0, 0, (int)((sharedVariables.GraphicsManager.PreferredBackBufferWidth / 64)), (int)((sharedVariables.GraphicsManager.PreferredBackBufferHeight / 36)));
             IsProjectileDead = false;
         }
 

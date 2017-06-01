@@ -98,7 +98,7 @@ namespace Speculo.GameplayClasses
         {
             //playArea is the area the gameplay is happening, for example the character cannot move out of the play area. Playarea X is 16% of the screen.
             levelCompleteSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/sectionpass");
-            levelFailSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/sectionpass");
+            levelFailSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/sectionfail");
 
             health = 400;
             //initialize();
@@ -157,7 +157,12 @@ namespace Speculo.GameplayClasses
             gameRuntime = TimeSpan.Zero;
             lastPauseTime = TimeSpan.Zero;
             GameStartTime = gameTime.TotalGameTime;
-            
+
+            if (sharedVariables.Hud != null)
+            {
+                sharedVariables.Hud.Initialize();
+            }
+
             addEnemies();
 
         }
@@ -165,25 +170,29 @@ namespace Speculo.GameplayClasses
         {
             gameRuntime = gameTime.TotalGameTime - gameStartTime - totalPauseTime;
 
-            foreach (Enemy enemy in enemyList.ToList()) //tolist because otherwise otherwise Collection was modified; enumeration operation may not execute exception
+            if(!died)
             {
-                if (!enemy.IsDead)
+                foreach (Enemy enemy in enemyList.ToList()) //tolist because otherwise otherwise Collection was modified; enumeration operation may not execute exception
                 {
-                    enemy.Update(gameTime);
+                    if (!enemy.IsDead)
+                    {
+                        enemy.Update(gameTime);
+                    }
+                    else
+                    {
+                        enemiesToRemove.Add(enemy);
+                        removeEnemies();
+                    }
                 }
-                else
+                if (enemyList.Count != 0)
                 {
-                    enemiesToRemove.Add(enemy);
-                    removeEnemies();
-                }  
-            }
-            if(enemyList.Count != 0)
-            {
-                if (enemyList[0].EnemySent)
-                {
-                    health = MathHelper.Clamp(health - 0.1f, 0, 400);
+                    if (enemyList[0].EnemySent)
+                    {
+                        health = MathHelper.Clamp(health - 0.1f, 0, 400);
+                    }
                 }
             }
+
             if(health <= 0 && !died)
             {
                 die();
@@ -306,7 +315,7 @@ namespace Speculo.GameplayClasses
         public void breakCombo()
         {
             combo = 0;
-            health = MathHelper.Clamp(health - 20, 0, 400);
+            health = MathHelper.Clamp(health - 100, 0, 400);
         }
 
         void removeEnemies()
