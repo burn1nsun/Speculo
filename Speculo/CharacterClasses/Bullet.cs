@@ -19,7 +19,7 @@ namespace Speculo.CharacterClasses
         Vector2 direction;
         Rectangle bulletRectangle;
         Texture2D bulletTexture;
-        const float bulletVelocity = 2f;
+        float bulletVelocity;
         TimeSpan bulletShot;
         Enemy enemy;
 
@@ -39,6 +39,7 @@ namespace Speculo.CharacterClasses
             this.bulletTexture = projectileTexture;
             this.bulletPosition = new Vector2(bulletStartPos.X - projectileTexture.Width / 2, bulletStartPos.Y);
             this.bulletShot = bulletShot;
+            this.bulletVelocity = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 450;
             IsProjectileDead = false;
             bounceBackSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/catchBullet");
             initialize();
