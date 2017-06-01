@@ -61,6 +61,7 @@ namespace Speculo.Screens
         private Rectangle buttonHoverRectangle;
         private Texture2D hoverTexture;
         private Texture2D levelPassTexture;
+        private Texture2D levelFailTexture;
 
         void LoadContent()
         {
@@ -69,6 +70,7 @@ namespace Speculo.Screens
             buttonTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1");
             hoverTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/buttonOverlay");
             levelPassTexture = sharedVariables.Content.Load<Texture2D>("Textures/Gameplay/sectionPass");
+            levelFailTexture = sharedVariables.Content.Load<Texture2D>("Textures/Gameplay/sectionFail");
 
             menuPlaySound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuplay");
             clickSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuclick");
@@ -196,15 +198,24 @@ namespace Speculo.Screens
             spriteBatch.Begin();
             spriteBatch.Draw(boundsTexture, boundsRectangle, Color.White);
             sharedVariables.GamePlay.CharacterClass.Draw(spriteBatch);
+            spriteBatch.Draw(sharedVariables.GamePlay.PlayAreaBorder, new Vector2(sharedVariables.GamePlay.PlayArea.X, sharedVariables.GamePlay.PlayArea.Y), Color.Red);
 
-            foreach(Enemy enemy in sharedVariables.GamePlay.enemyList)
+            foreach (Enemy enemy in sharedVariables.GamePlay.enemyList)
             {
                 enemy.Draw(spriteBatch);
             }
 
-            if (sharedVariables.GamePlay.LevelComplete)
+            if (sharedVariables.GamePlay.LevelComplete && !sharedVariables.GamePlay.LevelFail)
             {
-                spriteBatch.Draw(levelPassTexture, /*new Vector2(sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2 - levelPassTexture.Width / 2, sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2 - levelPassTexture.Height / 2) */new Rectangle(sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2 - levelPassTexture.Width / 4, sharedVariables.GraphicsManager.PreferredBackBufferHeight/ 2 - levelPassTexture.Height / 4, levelPassTexture.Width / 2, levelPassTexture.Height / 2), Color.White);
+                spriteBatch.Draw(levelPassTexture,
+                    /*new Vector2(sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2 - levelPassTexture.Width / 2, sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2 - levelPassTexture.Height / 2) */
+                    new Rectangle(sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2 - levelPassTexture.Width / 4, sharedVariables.GraphicsManager.PreferredBackBufferHeight/ 2 - levelPassTexture.Height / 4, levelPassTexture.Width / 2, levelPassTexture.Height / 2), Color.White);
+            }
+
+            if (sharedVariables.GamePlay.LevelFail)
+            {
+                spriteBatch.Draw(levelFailTexture,
+                    new Rectangle(sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2 - levelFailTexture.Width / 4, sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2 - levelFailTexture.Height / 4, levelFailTexture.Width / 2, levelFailTexture.Height / 2), Color.White);
             }
 
             //pause

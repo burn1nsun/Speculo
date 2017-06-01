@@ -24,6 +24,10 @@ namespace Speculo.GameplayClasses
         private string gameTimeTxt;
         private Vector2 comboTxtPos;
         private string comboTxt;
+        private Vector2 scoreTxtPos;
+        private string scoreTxt;
+        private Vector2 healthTxtPos;
+        private string healthTxt;
 
         private Vector2 pauseTimePos;
         private string pauseTimeTxt;
@@ -33,6 +37,11 @@ namespace Speculo.GameplayClasses
 
         private Vector2 totalGameTimePos;
         private string totalGameTimeTxt;
+
+        //health bar
+        private Texture2D healthTexture;
+        private Rectangle healthRectangle;
+
         //private Vector2 levelTxtPos;
         //private string levelTxt;
 
@@ -55,7 +64,7 @@ namespace Speculo.GameplayClasses
             volumeLevelTxt = "SoundFx volume: " + String.Format("{0:0.0}", sharedVariables.SoundFxVolume) + "\r\n" + "Music volume: " + String.Format("{0:0.0}", sharedVariables.MusicVolume);
 
             comboTxt = "0x";
-            //levelTxt = sharedVariables.GamePlay.Combo.ToString();
+            scoreTxt = "Score: 0";
 
             Initialize();
         }
@@ -63,7 +72,8 @@ namespace Speculo.GameplayClasses
         public void Initialize()
         {   
             volumeLevelTxtPos = new Vector2(10, 25);
-            comboTxtPos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 15);
+            comboTxtPos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 11);
+            scoreTxtPos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 8);
             gameTimeTxtPos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 5);
             gameTimeTxt = TimeSpan.Zero.ToString();
 
@@ -75,6 +85,16 @@ namespace Speculo.GameplayClasses
 
             totalGameTimePos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 9);
             totalGameTimeTxt = sharedVariables.GamePlay.pauseTime.ToString();
+
+            healthTxtPos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 15);
+            healthTxt = "Health: " + sharedVariables.GamePlay.Health.ToString();
+
+            healthRectangle = new Rectangle(sharedVariables.GamePlay.PlayArea.X + 10,
+                sharedVariables.GamePlay.PlayArea.Height - (sharedVariables.GamePlay.PlayArea.Height / 100) * 98,
+                (int)sharedVariables.GamePlay.Health, 5);
+
+            healthTexture = new Texture2D(sharedVariables.Graphics, 1, 1);
+            healthTexture.SetData(new Color[] { new Color(0, 255, 0) });
         }
         public void LoadContent(ContentManager Content)
         {
@@ -92,16 +112,19 @@ namespace Speculo.GameplayClasses
                 }
             }
 
-            totalGameTimeTxt = String.Format("{0:mm\\:ss}", sharedVariables.GamePlay.GameRuntime);
+            totalGameTimeTxt = gameTime.TotalGameTime.ToString() + " total gametime";
 
             if (sharedVariables.GamePlay.IsPlaying)
             {
                 comboTxt = sharedVariables.GamePlay.Combo.ToString() + "x";
-                gameTimeTxt = String.Format("{0}:{1}", sharedVariables.GamePlay.GameRuntime.TotalMinutes, Math.Truncate(sharedVariables.GamePlay.GameRuntime.TotalSeconds));
+                scoreTxt = "Score: " + sharedVariables.GamePlay.Score.ToString();
+                gameTimeTxt = "Level " + sharedVariables.GamePlay.CurrentLevel.ToString() + " : " + String.Format("{0:mm\\:ss}", sharedVariables.GamePlay.GameRuntime);
+                healthTxt = "Health: " + sharedVariables.GamePlay.Health.ToString();
+                healthRectangle.Width = (int)sharedVariables.GamePlay.Health;
                 //pausedTimeTxt = sharedVariables.GamePlay.pauseTime.ToString() + " paused at";
                 //pauseTimeTxt = sharedVariables.GamePlay.totalPauseTime.ToString() + " total pause time";
+            }
         }
-    }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -114,11 +137,14 @@ namespace Speculo.GameplayClasses
                 if (sharedVariables.GamePlay.IsPlaying)
                 {
                     spriteBatch.DrawString(hudFont, comboTxt, comboTxtPos, Color.White);
-                    //spriteBatch.DrawString(hudFont, gameTimeTxt, gameTimeTxtPos, Color.White);
+                    spriteBatch.DrawString(hudFont, gameTimeTxt, gameTimeTxtPos, Color.White);
+                    spriteBatch.DrawString(hudFont, scoreTxt, scoreTxtPos, Color.White);
+                    spriteBatch.DrawString(hudFont, healthTxt, healthTxtPos, Color.White);
+                    spriteBatch.Draw(healthTexture, healthRectangle, Color.White);
                     //spriteBatch.DrawString(hudFont, pauseTimeTxt, pauseTimePos, Color.White);
                     //spriteBatch.DrawString(hudFont, pausedTimeTxt, pausedTimePos, Color.White);
-                    spriteBatch.DrawString(hudFont, totalGameTimeTxt, totalGameTimePos, Color.White);
-            }
+                    //spriteBatch.DrawString(hudFont, totalGameTimeTxt, totalGameTimePos, Color.White);
+                }
         }
         }
 

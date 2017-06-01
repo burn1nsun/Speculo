@@ -39,6 +39,12 @@ namespace Speculo.CharacterClasses
             set { enemyRectangle = value; }
         }
 
+        public bool EnemySent
+        {
+            get { return enemySent; }
+            set { enemySent = value; }
+        }
+
         public bool IsDead
         {
             get { return isDead; }
@@ -77,7 +83,17 @@ namespace Speculo.CharacterClasses
             hasShot = false;
 
             position = new Vector2(0, 0);
-            enemyRectangle = new Rectangle((int)position.X, (int)position.Y, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 20, (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 25);
+            enemyRectangle = new Rectangle((int)position.X, (int)position.Y,
+                (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 20,
+                (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 25);
+
+            //enemyRectangle = new Rectangle(
+            //    (int)position.X,
+            //    (int)position.Y,
+            //    ((int)sharedVariables.Game[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32) / 12,
+            //    (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 20
+            //    );
+
             position = new Vector2(xPos, yPos);
 
             yAmount = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2;
@@ -149,7 +165,8 @@ namespace Speculo.CharacterClasses
         public void getHit()
         {
             this.isDead = true;
-            sharedVariables.GamePlay.addCombo();
+            
+            sharedVariables.GamePlay.killedEnemy();
             dieSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
         }
 

@@ -46,7 +46,7 @@ namespace Speculo.CharacterClasses
 
         public void initialize()
         {
-            BulletRectangle = new Rectangle(0, 0, sharedVariables.GraphicsManager.PreferredBackBufferWidth / 20, sharedVariables.GraphicsManager.PreferredBackBufferHeight / 20);
+            BulletRectangle = new Rectangle(0, 0, (int)((sharedVariables.GraphicsManager.PreferredBackBufferWidth / 16) / 1.5), (int)((sharedVariables.GraphicsManager.PreferredBackBufferHeight / 9) / 1.5 ));
             IsProjectileDead = false;
         }
 
