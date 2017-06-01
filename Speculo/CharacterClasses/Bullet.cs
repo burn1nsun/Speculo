@@ -39,6 +39,8 @@ namespace Speculo.CharacterClasses
             this.bulletTexture = projectileTexture;
             this.bulletPosition = new Vector2(bulletStartPos.X - projectileTexture.Width / 2, bulletStartPos.Y);
             this.bulletShot = bulletShot;
+
+            //450 = 900/2; 2 = default velocity
             this.bulletVelocity = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 450;
             IsProjectileDead = false;
             bounceBackSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/catchBullet");
