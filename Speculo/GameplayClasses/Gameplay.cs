@@ -101,7 +101,7 @@ namespace Speculo.GameplayClasses
             levelFailSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/sectionfail");
 
             health = 400;
-            //initialize();
+            //initialize();//
             playArea = new Rectangle(
                 ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16,
                 0,
