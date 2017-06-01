@@ -39,6 +39,12 @@ namespace Speculo.CharacterClasses
             set { enemyRectangle = value; }
         }
 
+        public bool EnemySent
+        {
+            get { return enemySent; }
+            set { enemySent = value; }
+        }
+
         public bool IsDead
         {
             get { return isDead; }
@@ -84,7 +90,7 @@ namespace Speculo.CharacterClasses
             //enemyRectangle = new Rectangle(
             //    (int)position.X,
             //    (int)position.Y,
-            //    ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32) / 12,
+            //    ((int)sharedVariables.Game[sharedVariables.ScreenSizeIndex].X - ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 32) / 12,
             //    (int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 20
             //    );
 

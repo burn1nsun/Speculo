@@ -46,7 +46,6 @@ namespace Speculo.Utility
     {
         public static void CreateBorder(this Texture2D texture, int borderWidth, Color borderColor)
         {
-
             Color[] colors = new Color[texture.Width * texture.Height];
 
             for (int x = 0; x < texture.Width; x++)
@@ -68,7 +67,6 @@ namespace Speculo.Utility
                         colors[x + y * texture.Width] = Color.Transparent;
                 }
             }
-
             texture.SetData(colors);
         }
     }

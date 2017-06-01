@@ -21,7 +21,7 @@ namespace Speculo.GameplayClasses
 
         public Character CharacterClass { get; set; }
         public bool IsPlaying { get { return isPlaying; } set { isPlaying = value; } }
-        public bool LevelComplete { get { return levelComplete; } set { levelComplete = value; } }
+        public bool LevelFail { get { return levelFail; } set { levelFail = value; } }
 
         public List<Enemy> enemyList;
         public List<Enemy> enemiesToRemove;
@@ -32,6 +32,8 @@ namespace Speculo.GameplayClasses
 
         private float playAreaSector; //1 sector is 5% of playarea
 
+        private float health;
+
         private SoundEffect levelCompleteSound;
         private bool isPlaying;
         private int currentLevel;
@@ -41,6 +43,9 @@ namespace Speculo.GameplayClasses
         public TimeSpan pauseTime;
         public TimeSpan lastPauseTime;
         public static Texture2D playAreaBorder;
+        private bool levelFail;
+        private SoundEffect levelFailSound;
+        private bool died;
 
         public Texture2D PlayAreaBorder
         {
@@ -72,6 +77,11 @@ namespace Speculo.GameplayClasses
             set { this.gameRuntime = value; }
         }
 
+        public bool LevelComplete
+        {
+            get { return levelComplete; }
+            set { this.levelComplete = value; }
+        }
 
         //public PlayArea() { get; set;}
         public Rectangle PlayArea
@@ -82,12 +92,15 @@ namespace Speculo.GameplayClasses
 
         public int CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
 
+        public float Health { get { return health; } set { health = value; } }
+
         public Gameplay()
         {
             //playArea is the area the gameplay is happening, for example the character cannot move out of the play area. Playarea X is 16% of the screen.
             levelCompleteSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/sectionpass");
+            levelFailSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/sectionpass");
 
-
+            health = 400;
             //initialize();
             playArea = new Rectangle(
                 ((int)sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X / 100) * 16,
@@ -115,9 +128,7 @@ namespace Speculo.GameplayClasses
             gameRuntime = TimeSpan.Zero;
             lastPauseTime = TimeSpan.Zero;
 
-
             addEnemies();
-
         }
 
         public void initialize(GameTime gameTime)
@@ -135,7 +146,10 @@ namespace Speculo.GameplayClasses
 
             combo = 0;
             score = 0;
+            health = 400;
             levelComplete = false;
+            levelFail = false;
+            died = false;
             currentLevel = 1;
 
             totalPauseTime = TimeSpan.Zero;
@@ -163,15 +177,33 @@ namespace Speculo.GameplayClasses
                     removeEnemies();
                 }  
             }
+            if(enemyList.Count != 0)
+            {
+                if (enemyList[0].EnemySent)
+                {
+                    health = MathHelper.Clamp(health - 0.1f, 0, 400);
+                }
+            }
+            if(health <= 0 && !died)
+            {
+                die();
+            }
         }
 
-        internal void killedEnemy()
+        public void die()
+        {
+            levelFail = true;
+            isPlaying = false;
+            died = true;
+            levelFailSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+        }
+        public void killedEnemy()
         {
             addCombo();
             addScore();
         }
 
-        private void addScore()
+        public void addScore()
         {
             if(combo > 0)
             {
@@ -181,7 +213,6 @@ namespace Speculo.GameplayClasses
             {
                 combo += 100;
             }
-            
         }
 
         public void levelCompleted()
@@ -195,7 +226,7 @@ namespace Speculo.GameplayClasses
             level1();
         }
 
-        void level1()
+        public void level1()
         {
             currentLevel = 1;
 
@@ -269,11 +300,13 @@ namespace Speculo.GameplayClasses
         public void addCombo()
         {
             combo++;
+            health = MathHelper.Clamp(health + 20, 0, 400);
         }
 
         public void breakCombo()
         {
             combo = 0;
+            health = MathHelper.Clamp(health - 20, 0, 400);
         }
 
         void removeEnemies()

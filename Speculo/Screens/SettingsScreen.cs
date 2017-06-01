@@ -97,10 +97,10 @@ namespace Speculo.Screens
             changeResolution.Text = sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].X + " x " + sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y;
 
             initializeButtons(game);
-            sharedVariables.Hud.Initialize();
-            game.MenuScreen.initializeButtons(game);
             sharedVariables.GamePlay.initialize(gameTime);
             sharedVariables.GamePlay.CharacterClass.initialize();
+            sharedVariables.Hud.Initialize();
+            game.MenuScreen.initializeButtons(game);
             game.GameScreen.initialize();
             game.Window.Position = new Point(0, 0);
 

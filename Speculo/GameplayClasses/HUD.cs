@@ -26,6 +26,8 @@ namespace Speculo.GameplayClasses
         private string comboTxt;
         private Vector2 scoreTxtPos;
         private string scoreTxt;
+        private Vector2 healthTxtPos;
+        private string healthTxt;
 
         private Vector2 pauseTimePos;
         private string pauseTimeTxt;
@@ -35,6 +37,11 @@ namespace Speculo.GameplayClasses
 
         private Vector2 totalGameTimePos;
         private string totalGameTimeTxt;
+
+        //health bar
+        private Texture2D healthTexture;
+        private Rectangle healthRectangle;
+
         //private Vector2 levelTxtPos;
         //private string levelTxt;
 
@@ -58,7 +65,6 @@ namespace Speculo.GameplayClasses
 
             comboTxt = "0x";
             scoreTxt = "Score: 0";
-            //levelTxt = sharedVariables.GamePlay.Combo.ToString();
 
             Initialize();
         }
@@ -79,6 +85,16 @@ namespace Speculo.GameplayClasses
 
             totalGameTimePos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 9);
             totalGameTimeTxt = sharedVariables.GamePlay.pauseTime.ToString();
+
+            healthTxtPos = new Vector2(10, sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y - (sharedVariables.ScreenSizes[sharedVariables.ScreenSizeIndex].Y / 100) * 15);
+            healthTxt = "Health: " + sharedVariables.GamePlay.Health.ToString();
+
+            healthRectangle = new Rectangle(sharedVariables.GamePlay.PlayArea.X + 10,
+                sharedVariables.GamePlay.PlayArea.Height - (sharedVariables.GamePlay.PlayArea.Height / 100) * 98,
+                (int)sharedVariables.GamePlay.Health, 5);
+
+            healthTexture = new Texture2D(sharedVariables.Graphics, 1, 1);
+            healthTexture.SetData(new Color[] { new Color(0, 255, 0) });
         }
         public void LoadContent(ContentManager Content)
         {
@@ -103,6 +119,8 @@ namespace Speculo.GameplayClasses
                 comboTxt = sharedVariables.GamePlay.Combo.ToString() + "x";
                 scoreTxt = "Score: " + sharedVariables.GamePlay.Score.ToString();
                 gameTimeTxt = "Level " + sharedVariables.GamePlay.CurrentLevel.ToString() + " : " + String.Format("{0:mm\\:ss}", sharedVariables.GamePlay.GameRuntime);
+                healthTxt = "Health: " + sharedVariables.GamePlay.Health.ToString();
+                healthRectangle.Width = (int)sharedVariables.GamePlay.Health;
                 //pausedTimeTxt = sharedVariables.GamePlay.pauseTime.ToString() + " paused at";
                 //pauseTimeTxt = sharedVariables.GamePlay.totalPauseTime.ToString() + " total pause time";
             }
@@ -121,10 +139,12 @@ namespace Speculo.GameplayClasses
                     spriteBatch.DrawString(hudFont, comboTxt, comboTxtPos, Color.White);
                     spriteBatch.DrawString(hudFont, gameTimeTxt, gameTimeTxtPos, Color.White);
                     spriteBatch.DrawString(hudFont, scoreTxt, scoreTxtPos, Color.White);
+                    spriteBatch.DrawString(hudFont, healthTxt, healthTxtPos, Color.White);
+                    spriteBatch.Draw(healthTexture, healthRectangle, Color.White);
                     //spriteBatch.DrawString(hudFont, pauseTimeTxt, pauseTimePos, Color.White);
                     //spriteBatch.DrawString(hudFont, pausedTimeTxt, pausedTimePos, Color.White);
                     //spriteBatch.DrawString(hudFont, totalGameTimeTxt, totalGameTimePos, Color.White);
-            }
+                }
         }
         }
 
