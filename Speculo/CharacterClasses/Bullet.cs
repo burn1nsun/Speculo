@@ -58,11 +58,20 @@ namespace Speculo.CharacterClasses
             bulletPosition += direction * bulletVelocity; 
 
 
-            if (sharedVariables.GamePlay.GameRuntime > bulletShot + TimeSpan.FromSeconds(2))
+            //if (sharedVariables.GamePlay.GameRuntime > bulletShot + TimeSpan.FromSeconds(2))
+            //{
+            //    IsProjectileDead = true;
+            //}
+            bulletCollision();
+            hitBottom();
+        }
+
+        public void hitBottom()
+        {
+            if(bulletPosition.Y >= sharedVariables.GamePlay.PlayArea.Height)
             {
                 IsProjectileDead = true;
             }
-            bulletCollision();
         }
 
         public void Draw(SpriteBatch spriteBatch)
