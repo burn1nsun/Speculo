@@ -168,7 +168,10 @@ namespace Speculo.GameplayClasses
         }
         public void Update(GameTime gameTime)
         {
-            gameRuntime = gameTime.TotalGameTime - gameStartTime - totalPauseTime;
+            if(!levelComplete)
+            {
+                gameRuntime = gameTime.TotalGameTime - gameStartTime - totalPauseTime;
+            }
 
             if(!died)
             {
