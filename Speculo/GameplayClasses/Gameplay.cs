@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Speculo.CharacterClasses;
 using Speculo.UserControls;
 using System;
@@ -46,6 +47,8 @@ namespace Speculo.GameplayClasses
         private bool levelFail;
         private SoundEffect levelFailSound;
         private bool died;
+        private bool playerReady;
+        private SoundEffect readySound;
 
         public Texture2D PlayAreaBorder
         {
@@ -83,6 +86,12 @@ namespace Speculo.GameplayClasses
             set { this.levelComplete = value; }
         }
 
+        public bool PlayerReady
+        {
+            get { return playerReady; }
+            set { this.playerReady = value; }
+        }
+
         //public PlayArea() { get; set;}
         public Rectangle PlayArea
         {
@@ -99,6 +108,7 @@ namespace Speculo.GameplayClasses
             //playArea is the area the gameplay is happening, for example the character cannot move out of the play area. Playarea X is 16% of the screen.
             levelCompleteSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/sectionpass");
             levelFailSound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/sectionfail");
+            readySound = sharedVariables.Content.Load<SoundEffect>("Sound/Gameplay/readysound");
 
             health = 400;
             //initialize();//
@@ -120,8 +130,10 @@ namespace Speculo.GameplayClasses
 
             combo = 0;
             score = 0;
-            levelComplete = false;
+            
             currentLevel = 1;
+            levelComplete = false;
+            playerReady = false;
 
             totalPauseTime = TimeSpan.Zero;
             pauseTime = TimeSpan.Zero;
@@ -140,7 +152,7 @@ namespace Speculo.GameplayClasses
             playAreaBorder.CreateBorder(1, Color.Red);
 
             CharacterClass = new Character();
-
+            
             enemyList = new List<Enemy>();
             enemiesToRemove = new List<Enemy>();
 
@@ -151,12 +163,13 @@ namespace Speculo.GameplayClasses
             levelFail = false;
             died = false;
             currentLevel = 1;
+            playerReady = false;
 
             totalPauseTime = TimeSpan.Zero;
             pauseTime = TimeSpan.Zero;
             gameRuntime = TimeSpan.Zero;
             lastPauseTime = TimeSpan.Zero;
-            GameStartTime = gameTime.TotalGameTime;
+            GameStartTime = TimeSpan.Zero;
 
             if (sharedVariables.Hud != null)
             {
@@ -168,37 +181,55 @@ namespace Speculo.GameplayClasses
         }
         public void Update(GameTime gameTime)
         {
-            if(!levelComplete)
+            if(playerReady)
             {
-                gameRuntime = gameTime.TotalGameTime - gameStartTime - totalPauseTime;
-            }
-
-            if(!died)
-            {
-                foreach (Enemy enemy in enemyList.ToList()) //tolist because otherwise otherwise Collection was modified; enumeration operation may not execute exception
+                if(!levelComplete)
                 {
-                    if (!enemy.IsDead)
+                    gameRuntime = gameTime.TotalGameTime - gameStartTime - totalPauseTime;
+                }
+
+                if(!died)
+                {
+                    foreach (Enemy enemy in enemyList.ToList()) //tolist because otherwise otherwise Collection was modified; enumeration operation may not execute exception
                     {
-                        enemy.Update(gameTime);
+                        if (!enemy.IsDead)
+                        {
+                            enemy.Update(gameTime);
+                        }
+                        else
+                        {
+                            enemiesToRemove.Add(enemy);
+                            removeEnemies();
+                        }
                     }
-                    else
+                    if (enemyList.Count != 0)
                     {
-                        enemiesToRemove.Add(enemy);
-                        removeEnemies();
+                        if (enemyList[0].EnemySent)
+                        {
+                            health = MathHelper.Clamp(health - 0.1f, 0, 400);
+                        }
                     }
                 }
-                if (enemyList.Count != 0)
+
+                if(health <= 0 && !died)
                 {
-                    if (enemyList[0].EnemySent)
-                    {
-                        health = MathHelper.Clamp(health - 0.1f, 0, 400);
-                    }
+                    die();
                 }
             }
-
-            if(health <= 0 && !died)
+            else
             {
-                die();
+                promptPlayerReady(gameTime);
+            }
+
+        }
+
+        public void promptPlayerReady(GameTime gameTime)
+        {
+            if(Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                playerReady = true;
+                gameStartTime = gameTime.TotalGameTime;
+                readySound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
             }
         }
 

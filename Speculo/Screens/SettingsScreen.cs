@@ -49,6 +49,8 @@ namespace Speculo.Screens
             backSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuback");
             hoverSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/MenuHit");
 
+            this.game = game;
+
         }
 
         public void initializeButtons(Game1 game)
@@ -56,34 +58,20 @@ namespace Speculo.Screens
             centerWidth = sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2;
             centerHeight = sharedVariables.GraphicsManager.PreferredBackBufferHeight / 2;
 
-            this.game = game;
-            
             changeResolution = new Button(game.Content, sharedVariables.GraphicsManager.PreferredBackBufferWidth + " x " + sharedVariables.GraphicsManager.PreferredBackBufferHeight, new Rectangle(centerWidth - texture.Width / 2, centerHeight - 200, texture.Width, texture.Height), texture);
             fullScreenToggle = new Button(game.Content, "Fullscreen", new Rectangle(centerWidth - texture.Width / 2, centerHeight - 100, texture.Width, texture.Height), texture);
             incrementVolume = new Button(game.Content, "Volume+", new Rectangle(centerWidth - texture.Width / 2, centerHeight, texture.Width, texture.Height), texture);
             decreaseVolume = new Button(game.Content, "Volume-", new Rectangle(centerWidth - texture.Width / 2, centerHeight + 100, texture.Width, texture.Height), texture);
             back = new Button(game.Content, "Back", new Rectangle(centerWidth - texture.Width / 2, centerHeight + 200, texture.Width, texture.Height), texture);
 
-            if (Controls == null)
-            {
-                Controls.Add(changeResolution);
-                Controls.Add(fullScreenToggle);
-                Controls.Add(incrementVolume);
-                Controls.Add(decreaseVolume);
-                Controls.Add(back);
-            } else
-            {
-                Controls.Clear();
-
-                Controls.Add(changeResolution);
-                Controls.Add(fullScreenToggle);
-                Controls.Add(incrementVolume);
-                Controls.Add(decreaseVolume);
-                Controls.Add(back);
-            }
-
+            Controls.Clear();      
+            Controls.Add(changeResolution);
+            Controls.Add(fullScreenToggle);
+            Controls.Add(incrementVolume);
+            Controls.Add(decreaseVolume);
+            Controls.Add(back);
+            
             bgRectangle = new Rectangle(0, 0, sharedVariables.GraphicsManager.PreferredBackBufferWidth, sharedVariables.GraphicsManager.PreferredBackBufferHeight);
-
         }
 
         public void adjustToResolution(GameTime gameTime)

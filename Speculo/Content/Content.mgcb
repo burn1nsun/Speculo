@@ -275,3 +275,9 @@
 /processorParam:TextureFormat=Color
 /build:Textures/Gameplay/Projectiles/projectile3.png
 
+#begin Sound/Gameplay/readysound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Gameplay/readysound.wav
+

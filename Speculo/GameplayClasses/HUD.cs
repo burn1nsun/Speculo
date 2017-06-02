@@ -16,10 +16,12 @@ namespace Speculo.GameplayClasses
         TimeSpan displayTime;
         TimeSpan lastDisplayed;
 
+        //settings text
         private Vector2 volumeLevelTxtPos;
         private string volumeLevelTxt;
         private bool showVolumeLevel;
 
+        //ingame text
         private Vector2 gameTimeTxtPos;
         private string gameTimeTxt;
         private Vector2 comboTxtPos;
@@ -42,8 +44,14 @@ namespace Speculo.GameplayClasses
         private Texture2D healthTexture;
         private Rectangle healthRectangle;
 
+        //player ready
+
+        private Vector2 playerReadyTxtPos;
+        private string playerReadyTxt;
+
         //private Vector2 levelTxtPos;
         //private string levelTxt;
+
 
         public SpriteFont hudFont; 
 
@@ -97,6 +105,11 @@ namespace Speculo.GameplayClasses
 
             healthTexture = new Texture2D(sharedVariables.Graphics, 1, 1);
             healthTexture.SetData(new Color[] { new Color(0, 255, 0) });
+
+            playerReadyTxt = "Press SPACE to ready up!";
+            playerReadyTxtPos = new Vector2(sharedVariables.GraphicsManager.PreferredBackBufferWidth / 2 - ((int)hudFont.MeasureString(playerReadyTxt).X / 2), sharedVariables.GamePlay.PlayArea.Height / 3);
+            
+
             //if(sharedVariables.Hud != null)
             //{
             //    sharedVariables.Hud.Initialize();
@@ -142,11 +155,18 @@ namespace Speculo.GameplayClasses
                 }
                 if (sharedVariables.GamePlay.IsPlaying)
                 {
+                    if(!sharedVariables.GamePlay.PlayerReady)
+                    {
+                        spriteBatch.DrawString(hudFont, playerReadyTxt, playerReadyTxtPos, Color.White);
+                    }
+
                     spriteBatch.DrawString(hudFont, comboTxt, comboTxtPos, Color.White);
                     spriteBatch.DrawString(hudFont, gameTimeTxt, gameTimeTxtPos, Color.White);
                     spriteBatch.DrawString(hudFont, scoreTxt, scoreTxtPos, Color.White);
                     spriteBatch.DrawString(hudFont, healthTxt, healthTxtPos, Color.White);
                     spriteBatch.Draw(healthTexture, healthRectangle, Color.White);
+                    //sharedVariables
+                    
                     //spriteBatch.DrawString(hudFont, pauseTimeTxt, pauseTimePos, Color.White);
                     //spriteBatch.DrawString(hudFont, pausedTimeTxt, pausedTimePos, Color.White);
                     //spriteBatch.DrawString(hudFont, totalGameTimeTxt, totalGameTimePos, Color.White);

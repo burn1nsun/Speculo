@@ -92,11 +92,12 @@ namespace Speculo.CharacterClasses
             {
                 Rectangle newRectangle = new Rectangle((int)sharedVariables.GamePlay.CharacterClass.Position.X, (int)sharedVariables.GamePlay.CharacterClass.Position.Y, sharedVariables.GamePlay.CharacterClass.Rectangle.Width, sharedVariables.GamePlay.CharacterClass.Rectangle.Height);
 
-                if (rect.TouchTopOf(newRectangle))
+                if (rect.TouchTopOf(newRectangle) || (rect.TouchLeftOf(newRectangle)) || (rect.TouchRightOf(newRectangle)))
                 {
                     bounceBack();
                     bounceBackSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
                 }
+
             }
 
             else if(hasBounced)
