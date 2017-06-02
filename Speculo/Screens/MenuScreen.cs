@@ -19,6 +19,7 @@ namespace Speculo.Screens
         Button btnPlay;
         Button btnSettings;
         Button btnQuit;
+        Button btnLevelSelect;
         List<Control> Controls = new List<Control>();
 
         int centerWidth;
@@ -59,12 +60,14 @@ namespace Speculo.Screens
             btnPlay = new Button(game.Content, "Play", new Rectangle(centerWidth - texture.Width / 2, centerHeight - 100, texture.Width, texture.Height), texture);
             btnSettings = new Button(game.Content, "Settings", new Rectangle(centerWidth - texture.Width / 2, centerHeight, texture.Width, texture.Height), texture);
             btnQuit = new Button(game.Content, "Quit", new Rectangle(centerWidth - texture.Width / 2, centerHeight + 100, texture.Width, texture.Height), texture);
+            btnLevelSelect = new Button(sharedVariables.Content, "play", new Rectangle(centerWidth - texture.Width / 2, centerHeight - 200, texture.Width, texture.Height), texture);
 
             Controls.Clear();
 
             Controls.Add(btnPlay);
             Controls.Add(btnSettings);
             Controls.Add(btnQuit);
+            Controls.Add(btnLevelSelect);
 
             bgRectangle = new Rectangle(0, 0, sharedVariables.GraphicsManager.PreferredBackBufferWidth, sharedVariables.GraphicsManager.PreferredBackBufferHeight);
         }
@@ -110,6 +113,24 @@ namespace Speculo.Screens
             }
             else if (!btnQuit.IsMouseOver) { btnQuit.HoverSoundPlayed = false; }
 
+            if (btnLevelSelect.IsMouseOver)
+            {
+                buttonHoverRectangle = new Rectangle(btnLevelSelect.Rectangle.X, btnLevelSelect.Rectangle.Y, btnLevelSelect.Rectangle.Width, btnLevelSelect.Rectangle.Height);
+                if (!btnLevelSelect.HoverSoundPlayed && btnLevelSelect.IsMouseOver)
+                {
+                    btnLevelSelect.HoverSoundPlayed = true;
+                    hoverSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+                }
+            }
+            else if (!btnLevelSelect.IsMouseOver) { btnLevelSelect.HoverSoundPlayed = false; }
+
+            if (btnLevelSelect.IsLeftClicked)
+            {
+                sharedVariables.GamePlay.initialize(gameTime);
+                this.IsActive = false;
+                game.LevelScreen.IsActive = true;
+                menuPlaySound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+            }
 
             if (btnPlay.IsLeftClicked)
             {
@@ -134,7 +155,7 @@ namespace Speculo.Screens
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+
             spriteBatch.Draw(bgTexture, bgRectangle, Color.White);
             foreach(Control control in Controls)
             {
@@ -144,7 +165,7 @@ namespace Speculo.Screens
                     spriteBatch.Draw(hoverTexture, buttonHoverRectangle, Color.White);
                 }
             }
-            spriteBatch.End();
+
         }
     }
 }

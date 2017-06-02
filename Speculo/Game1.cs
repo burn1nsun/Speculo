@@ -27,6 +27,7 @@ namespace Speculo
         public MenuScreen MenuScreen;
         public GameScreen GameScreen;
         public SettingsScreen SettingsScreen;
+        public LevelMenuScreen LevelScreen;
 
         public Game1()
         {
@@ -84,9 +85,12 @@ namespace Speculo
 
             SettingsScreen = new SettingsScreen(this);
 
+            LevelScreen = new LevelMenuScreen();
+
             Screens.Add(GameScreen);
             Screens.Add(MenuScreen);
             Screens.Add(SettingsScreen);
+            Screens.Add(LevelScreen);
             
 
             //sharedVariables.Hud.LoadContent(Content);
@@ -155,6 +159,7 @@ namespace Speculo
 
             // TODO: Add your drawing code here
 
+            spriteBatch.Begin();
             Screens.ForEach(s =>
             {
                 if (s.IsActive)
@@ -162,6 +167,8 @@ namespace Speculo
                     s.Draw(spriteBatch);
                 }
             });
+            spriteBatch.End();
+
 
             hudSpriteBatch.Begin();
             sharedVariables.Hud.Draw(hudSpriteBatch);

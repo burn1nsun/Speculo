@@ -171,7 +171,7 @@ namespace Speculo.Screens
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+            
             spriteBatch.Draw(bgTexture, bgRectangle, Color.White);
             foreach (Control control in Controls)
             {
@@ -181,7 +181,6 @@ namespace Speculo.Screens
                     spriteBatch.Draw(hoverTexture, buttonHoverRectangle, Color.White);
                 }
             }
-            spriteBatch.End();
         }
     }
 }
