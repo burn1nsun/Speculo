@@ -85,7 +85,7 @@ namespace Speculo
 
             SettingsScreen = new SettingsScreen(this);
 
-            LevelScreen = new LevelMenuScreen();
+            LevelScreen = new LevelMenuScreen(this);
 
             Screens.Add(GameScreen);
             Screens.Add(MenuScreen);

@@ -90,6 +90,7 @@ namespace Speculo.Screens
             sharedVariables.GamePlay.CharacterClass.initialize();
             game.MenuScreen.initializeButtons(game);
             game.GameScreen.initialize();
+            game.LevelScreen.initializeButtons();
             //game.Window.Position = new Point(10, 10);
             sharedVariables.Hud.Initialize();
 

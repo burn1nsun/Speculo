@@ -12,6 +12,8 @@ namespace Speculo.Screens
 {
     public class LevelMenuScreen : BaseScreen
     {
+        Game1 game;
+
         UserControls.Button backButton;
         Utility.SharedVariables sharedVariables = Utility.SharedVariables.Instance;
         List<UserControls.Control> Controls = new List<UserControls.Control>();
@@ -25,14 +27,18 @@ namespace Speculo.Screens
         private SoundEffect backSound;
 
         
-        public LevelMenuScreen()
+        public LevelMenuScreen(Game1 game)
         {
+            this.game = game;
             loadContent();
         }
         private void loadContent()
         {
             texture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1");
             hoverTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/buttonOverlay");
+
+            initializeButtons();
+
             clickSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuclick");
             backSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuback");
             hoverSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/MenuHit");
@@ -48,10 +54,6 @@ namespace Speculo.Screens
 
             Controls.Clear();
             Controls.Add(backButton);
-            
-
-            
-
         }
         private void onButtonHover()
         {
@@ -70,6 +72,13 @@ namespace Speculo.Screens
                 {
                     btn.HoverSoundPlayed = false;
                 }
+            }
+
+            if(backButton.IsLeftClicked)
+            {
+                backSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+                this.IsActive = false;
+                game.MenuScreen.IsActive = true;
             }
         }
 
