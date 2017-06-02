@@ -195,7 +195,7 @@ namespace Speculo.Screens
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+
             spriteBatch.Draw(boundsTexture, boundsRectangle, Color.White);
             sharedVariables.GamePlay.CharacterClass.Draw(spriteBatch);
             spriteBatch.Draw(sharedVariables.GamePlay.PlayAreaBorder, new Vector2(sharedVariables.GamePlay.PlayArea.X, sharedVariables.GamePlay.PlayArea.Y), Color.Red);
@@ -232,7 +232,6 @@ namespace Speculo.Screens
                 }
             }
 
-            spriteBatch.End();
         }
     }
 }
