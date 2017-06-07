@@ -159,6 +159,7 @@ namespace Speculo.CharacterClasses
                 if (position.Y >= yAmount)
                 {
                     hasShot = true;
+                    
                     shoot(gameTime);
                 }
             }
@@ -176,7 +177,7 @@ namespace Speculo.CharacterClasses
             this.isDead = true;
             
             sharedVariables.GamePlay.killedEnemy();
-            dieSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
+            //dieSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
         }
 
         public void Draw(SpriteBatch spriteBatch)

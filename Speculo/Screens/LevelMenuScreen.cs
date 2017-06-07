@@ -31,13 +31,12 @@ namespace Speculo.Screens
         {
             this.game = game;
             loadContent();
+            initializeButtons();
         }
         private void loadContent()
         {
             texture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/button1");
             hoverTexture = sharedVariables.Content.Load<Texture2D>("Textures/MenuObjects/Buttons/buttonOverlay");
-
-            initializeButtons();
 
             clickSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuclick");
             backSound = sharedVariables.Content.Load<SoundEffect>("Sound/MenuSounds/menuback");
