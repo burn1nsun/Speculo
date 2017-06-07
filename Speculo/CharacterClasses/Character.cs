@@ -33,6 +33,12 @@ namespace Speculo.CharacterClasses
             set { this.characterRectangle = value; }
         }
 
+        public Texture2D Texture
+        {
+            get { return this.texture; }
+            set { this.texture = value; }
+        }
+
 
         public Character()
         {

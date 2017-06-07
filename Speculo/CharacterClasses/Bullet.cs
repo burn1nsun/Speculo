@@ -90,7 +90,7 @@ namespace Speculo.CharacterClasses
             Rectangle rect = new Rectangle((int)bulletPosition.X, (int)bulletPosition.Y, bulletRectangle.Width, bulletRectangle.Height);
             if (!hasBounced)
             {
-                Rectangle newRectangle = new Rectangle((int)sharedVariables.GamePlay.CharacterClass.Position.X, (int)sharedVariables.GamePlay.CharacterClass.Position.Y, sharedVariables.GamePlay.CharacterClass.Rectangle.Width, sharedVariables.GamePlay.CharacterClass.Rectangle.Height);
+                Rectangle newRectangle = new Rectangle((int)sharedVariables.GamePlay.CharacterClass.Position.X, (int)sharedVariables.GamePlay.CharacterClass.Position.Y, sharedVariables.GamePlay.CharacterClass.Texture.Width, sharedVariables.GamePlay.CharacterClass.Texture.Height);
 
                 if (rect.TouchTopOf(newRectangle) || (rect.TouchLeftOf(newRectangle)) || (rect.TouchRightOf(newRectangle)))
                 {
