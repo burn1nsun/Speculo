@@ -55,11 +55,18 @@ namespace Speculo.GameplayClasses
         private bool playerReady;
         private SoundEffect readySound;
         private Song levelSong;
+        private Texture2D characterBorder;
 
         public Texture2D PlayAreaBorder
         {
             get { return playAreaBorder; }
             set { playAreaBorder = value; }
+        }
+
+        public Texture2D CharacterBorder
+        {
+            get { return characterBorder; }
+            set { characterBorder = value; }
         }
 
         public int Combo
@@ -134,7 +141,12 @@ namespace Speculo.GameplayClasses
             playAreaBorder = new Texture2D(sharedVariables.Graphics, playArea.Width, playArea.Height);
             playAreaBorder.CreateBorder(1, Color.Red);
 
+
+
             CharacterClass = new Character();
+
+            characterBorder = new Texture2D(sharedVariables.Graphics, CharacterClass.Rectangle.Width, CharacterClass.Rectangle.Height);
+            characterBorder.CreateBorder(1, Color.Red);
 
             enemyList = new List<Enemy>();
             enemiesToRemove = new List<Enemy>();
@@ -650,7 +662,7 @@ namespace Speculo.GameplayClasses
         }
 
     }
-    static class Utilities
+    public static class Utilities
     {
         public static void CreateBorder(this Texture2D texture, int borderWidth, Color borderColor)
         {

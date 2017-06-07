@@ -26,9 +26,17 @@ namespace Speculo.CharacterClasses
         private SoundEffect bounceBackSound;
 
         private bool hasBounced;
+        private Texture2D bulletBorder;
 
         public Rectangle BulletRectangle { get { return bulletRectangle; } set { bulletRectangle = value; } }
         public bool IsProjectileDead { get; set; }
+
+        public Texture2D BulletBorder
+        {
+            get { return bulletBorder; }
+            set { bulletBorder = value; }
+        }
+
         //static private Texture2D characterBorder;
 
         public Bullet(Vector2 bulletStartPos, TimeSpan bulletShot, Texture2D projectileTexture, GraphicsDevice g, Enemy enemy)
@@ -51,6 +59,9 @@ namespace Speculo.CharacterClasses
         {
             BulletRectangle = new Rectangle(0, 0, (int)((sharedVariables.GraphicsManager.PreferredBackBufferWidth / 64)), (int)((sharedVariables.GraphicsManager.PreferredBackBufferHeight / 36)));
             IsProjectileDead = false;
+
+            bulletBorder = new Texture2D(sharedVariables.Graphics, bulletRectangle.Width, bulletRectangle.Height);
+            bulletBorder.CreateBorder(1, Color.Red);
         }
 
         public void Update(GameTime gameTime)
@@ -77,6 +88,8 @@ namespace Speculo.CharacterClasses
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(bulletTexture, new Rectangle((int)bulletPosition.X, (int)bulletPosition.Y, bulletRectangle.Width, bulletRectangle.Height), Color.White);
+            spriteBatch.Draw(BulletBorder, new Vector2(bulletPosition.X, bulletPosition.Y), Color.Red);
+                //spriteBatch.Draw(sharedVariables.GamePlay.CharacterBorder, new Vector2(sharedVariables.GamePlay.CharacterClass.Position.X, sharedVariables.GamePlay.CharacterClass.Position.Y), Color.Red);
         }
 
         public void bounceBack()
@@ -90,9 +103,9 @@ namespace Speculo.CharacterClasses
             Rectangle rect = new Rectangle((int)bulletPosition.X, (int)bulletPosition.Y, bulletRectangle.Width, bulletRectangle.Height);
             if (!hasBounced)
             {
-                Rectangle newRectangle = new Rectangle((int)sharedVariables.GamePlay.CharacterClass.Position.X, (int)sharedVariables.GamePlay.CharacterClass.Position.Y, sharedVariables.GamePlay.CharacterClass.Texture.Width, sharedVariables.GamePlay.CharacterClass.Texture.Height);
+                Rectangle newRectangle = new Rectangle((int)sharedVariables.GamePlay.CharacterClass.Position.X, (int)sharedVariables.GamePlay.CharacterClass.Position.Y, sharedVariables.GamePlay.CharacterClass.Rectangle.Width, sharedVariables.GamePlay.CharacterClass.Rectangle.Height);
 
-                if (rect.TouchTopOf(newRectangle) || (rect.TouchLeftOf(newRectangle)) || (rect.TouchRightOf(newRectangle)))
+                if (rect.TouchTopOf(newRectangle) || (rect.TouchLeftOf(newRectangle)) || (rect.TouchRightOf(newRectangle)) || newRectangle.TouchTopOf(rect) || newRectangle.TouchLeftOf(rect) || newRectangle.TouchRightOf(rect))
                 {
                     bounceBack();
                     bounceBackSound.Play(sharedVariables.SoundFxVolume, 0f, 0f);
@@ -111,5 +124,7 @@ namespace Speculo.CharacterClasses
                 }
             }
         }
+
+
     }
 }
