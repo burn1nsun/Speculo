@@ -287,3 +287,9 @@
 /processorParam:Quality=Best
 /build:Sound/Gameplay/Songs/crystallized.mp3
 
+#begin Sound/Gameplay/Songs/192.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/Gameplay/Songs/192.mp3
+

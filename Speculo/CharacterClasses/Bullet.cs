@@ -88,8 +88,8 @@ namespace Speculo.CharacterClasses
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(bulletTexture, new Rectangle((int)bulletPosition.X, (int)bulletPosition.Y, bulletRectangle.Width, bulletRectangle.Height), Color.White);
-            spriteBatch.Draw(BulletBorder, new Vector2(bulletPosition.X, bulletPosition.Y), Color.Red);
-                //spriteBatch.Draw(sharedVariables.GamePlay.CharacterBorder, new Vector2(sharedVariables.GamePlay.CharacterClass.Position.X, sharedVariables.GamePlay.CharacterClass.Position.Y), Color.Red);
+            //spriteBatch.Draw(BulletBorder, new Vector2(bulletPosition.X, bulletPosition.Y), Color.Red);
+            //spriteBatch.Draw(sharedVariables.GamePlay.CharacterBorder, new Vector2(sharedVariables.GamePlay.CharacterClass.Position.X, sharedVariables.GamePlay.CharacterClass.Position.Y), Color.Red);
         }
 
         public void bounceBack()
