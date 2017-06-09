@@ -1512,6 +1512,10 @@ namespace Speculo.GameplayClasses
         public void addCombo()
         {
             combo++;
+            if(biggestCombo < combo)
+            {
+                biggestCombo = combo;
+            }
             health = MathHelper.Clamp(health + 20, 0, 400);
         }
 
