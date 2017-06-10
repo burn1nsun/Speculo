@@ -42,6 +42,12 @@ namespace Speculo.CharacterClasses
             set { enemyRectangle = value; }
         }
 
+        public TimeSpan ApproachTime
+        {
+            get { return approachTime; }
+            set { approachTime = value; }
+        }
+
         public bool EnemySent
         {
             get { return enemySent; }

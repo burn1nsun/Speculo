@@ -293,3 +293,15 @@
 /processorParam:Quality=Best
 /build:Sound/Gameplay/Songs/192.mp3
 
+#begin Sound/Gameplay/Songs/solace.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/Gameplay/Songs/solace.mp3
+
+#begin Sound/Gameplay/Songs/raveboy.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/Gameplay/Songs/raveboy.mp3
+
