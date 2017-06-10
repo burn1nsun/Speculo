@@ -22,7 +22,7 @@ namespace Speculo.Screens
         Button btnLevelSelect;
         List<Control> Controls = new List<Control>();
 
-        int centerWidth;
+        int centerWidth;//
         int centerHeight;
         
         Texture2D texture;
